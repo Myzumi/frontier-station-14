@@ -12,6 +12,8 @@
                    FontColorOverride="{xNamespace:Static s:StyleNano.NanoGold}"
                    StyleClasses="LabelKeyText"/>
             <CheckBox Name="DisableFiltersCheckBox" Text="{Loc 'ui-options-no-filters'}" />
+            <CheckBox Name="EnableDiscordOocNameColor" Text="{Loc 'ui-options-enable-discord-ooc-name'}" />
+            <CheckBox Name="EnableDiscordOocTextColor" Text="{Loc 'ui-options-enable-discord-ooc-text'}" />
         </BoxContainer>
         <controls:StripeBack HasBottomEdge="False" HasMargins="False">
             <Button Name="ApplyButton"
