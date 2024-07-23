@@ -1288,8 +1288,10 @@ namespace Content.Shared.CCVar
 
         /* New Frontiers - Discord Color Perk - Adds support for Discord Users to have OOC colors.
         This code is licensed under AGPLv3. See AGPLv3.txt */
-        public static readonly CVarDef<bool> ShowOocDiscordColor =
-            CVarDef.Create("ooc.show_ooc_discord_color", true, CVar.ARCHIVE | CVar.REPLICATED | CVar.CLIENT);
+        public static readonly CVarDef<bool> ShowOocDiscordNameColor =
+            CVarDef.Create("ooc.show_ooc_discord_name_color", true, CVar.ARCHIVE | CVar.REPLICATED | CVar.CLIENT);
+        public static readonly CVarDef<bool> ShowOocDiscordTextColor =
+            CVarDef.Create("ooc.show_ooc_discord_text_color", true, CVar.ARCHIVE | CVar.REPLICATED | CVar.CLIENT);
         // End of modified code
 
         /*
