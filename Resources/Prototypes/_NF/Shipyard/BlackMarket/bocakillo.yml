@@ -16,6 +16,9 @@
   category: Small
   group: BlackMarket
   shuttlePath: /Maps/_NF/Shuttles/BlackMarket/bocakillo.yml
+  guidebookPage: Null
+  class:
+  - Pirate
 
 - type: gameMap
   id: Bocakillo
@@ -24,7 +27,7 @@
   minPlayers: 0
   stations:
     Bocakillo:
-      stationProto: PirateFrontierVessel
+      stationProto: StandardFrontierVessel
       components:
         - type: StationNameSetup
           mapNameTemplate: 'Bocadillo {1}' #Sneaky spoofed name

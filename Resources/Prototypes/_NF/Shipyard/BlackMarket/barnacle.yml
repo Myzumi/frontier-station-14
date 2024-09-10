@@ -11,6 +11,9 @@
   category: Small
   group: BlackMarket
   shuttlePath: /Maps/_NF/Shuttles/BlackMarket/barnacle.yml
+  guidebookPage: Null
+  class:
+  - Pirate
 
 - type: gameMap
   id: Barnacle
@@ -19,7 +22,7 @@
   minPlayers: 0
   stations:
     Barnacle:
-      stationProto: PirateFrontierVessel
+      stationProto: StandardFrontierVessel
       components:
         - type: StationNameSetup
           mapNameTemplate: 'Prospector {1}' # Fake name eh?

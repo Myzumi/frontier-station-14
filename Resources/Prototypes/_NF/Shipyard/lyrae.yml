@@ -1,11 +1,24 @@
+# Author Info
+# GitHub: Tych0theSynth
+# Discord: Tych0
+
+# Maintainer Info
+# GitHub: Tych0theSynth
+# Discord: Tych0
+
+# Shuttle Notes:
+#
 - type: vessel
   id: Lyrae
   name: SBB Lyrae
   description: A medium size science vessel with laboratories for both anomalous and xenoarchaeology research. 
   price: 51000
   category: Medium
-  group: Civilian
+  group: Shipyard
   shuttlePath: /Maps/_NF/Shuttles/lyrae.yml
+  guidebookPage: Null
+  class:
+  - Science
 
 - type: gameMap
   id: Lyrae

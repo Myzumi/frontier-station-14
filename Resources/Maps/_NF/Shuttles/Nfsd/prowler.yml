@@ -16,10 +16,10 @@ entities:
   - uid: 1
     components:
     - type: MetaData
+      name: Prowler
     - type: Transform
       pos: 0,-10
       parent: invalid
-    - type: StationEmpImmune
     - type: MapGrid
       chunks:
         0,0:

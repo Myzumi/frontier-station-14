@@ -66,7 +66,7 @@
   abstract: true
   components:
   - type: Reflect
-    reflectProb: 0.7
+    reflectProb: 0.8
     reflects:
       - Energy
 
@@ -189,8 +189,11 @@
   - MobEnhancedMovement
   - BaseMobSpecies
   - MobHumanoidHostileAIComplex
+  - BaseC3Contraband
   id: MobHumanoidHostileBase
   components:
+  - type: NPCRetaliation
+    attackMemoryLength: 10
   - type: MobMover
   - type: StandingState
   - type: RandomHumanoidAppearance
@@ -219,13 +222,13 @@
   - type: MobPrice
     price: 1500
     deathPenalty: 0.5
-  - type: Contraband
   - type: Advertise
     pack: syndicatehumanoidchatter
     minimumWait: 120 # 1 * 2
     maximumWait: 240 # 2 * 60
     nextAdvertisementTime: 0
   - type: SalvageMobRestrictionsNF
+  - type: FTLKnockdownImmune
 
 # NonHuman NPC base, no equipment, immune to vacuum/low pressure
 - type: entity
@@ -241,8 +244,11 @@
   - MobFlammable
   - MobEnhancedMovement
   - MobHumanoidHostileAIComplex
+  - BaseC3Contraband
   id: MobNonHumanHostileBase
   components:
+  - type: NPCRetaliation
+    attackMemoryLength: 10
   - type: Reactive
     groups:
       Flammable: [Touch]
@@ -292,9 +298,9 @@
     price: 1500
     deathPenalty: 0.5
   - type: SalvageMobRestrictionsNF
-  - type: Contraband
   - type: Tag
     tags:
     - CanPilot
     - FootstepSound
     - DoorBumpOpener
+  - type: FTLKnockdownImmune

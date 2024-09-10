@@ -4,7 +4,7 @@
   name: spesos
   description: Hard-earned credits. Fresh from the digital cash mint. Smells like success and unpaid taxes.
   abstract: true
-  noSpawn: true
+  categories: [ HideSpawnMenu ]
   suffix: Money
   components:
   - type: Sprite
@@ -17,9 +17,9 @@
 
 - type: entity
   parent: SpaceCashExpedition
-  id: SpaceCashMinimalExpedition
-  name: spesos (5000)
-  noSpawn: true
+  id: SpaceCashExpeditionT1
+  name: spesos (5,000)
+  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -31,9 +31,9 @@
 
 - type: entity
   parent: SpaceCashExpedition
-  id: SpaceCashMinorExpedition
-  name: spesos (10000)
-  noSpawn: true
+  id: SpaceCashExpeditionT2
+  name: spesos (10,000)
+  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -45,9 +45,9 @@
 
 - type: entity
   parent: SpaceCashExpedition
-  id: SpaceCashModerateExpedition
-  name: spesos (20000)
-  noSpawn: true
+  id: SpaceCashExpeditionT3
+  name: spesos (20,000)
+  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -59,9 +59,9 @@
 
 - type: entity
   parent: SpaceCashExpedition
-  id: SpaceCashHazardousExpedition
-  name: spesos (40000)
-  noSpawn: true
+  id: SpaceCashExpeditionT4
+  name: spesos (40,000)
+  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:
@@ -74,9 +74,9 @@
 
 - type: entity
   parent: SpaceCashExpedition
-  id: SpaceCashExtremeExpedition
-  name: spesos (70000)
-  noSpawn: true
+  id: SpaceCashExpeditionT5
+  name: spesos (70,000)
+  categories: [ HideSpawnMenu ]
   components:
   - type: SpawnItemsOnUse
     items:

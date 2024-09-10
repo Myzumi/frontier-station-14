@@ -6,12 +6,16 @@
   loadouts:
   - PirateJumpsuit
   - PirateJumpskirt
+  - PirateClothingUniformJumpsuitPirateSlops
+  - PirateClothingUniformJumpsuitPirateLuffy
   fallbacks:
   - PirateJumpsuit
+  - PirateJumpskirt
 
 - type: loadoutGroup
   id: PiratePDA
   name: loadout-group-contractor-id
+  hidden: true # No point in showing this, it gets auto-selected.
   loadouts:
   - PiratePirateNFPDA
   fallbacks:
@@ -25,12 +29,56 @@
   - ContractorClothingMaskBreath
   - ContractorClothingMaskBreathMedical
   - ContractorClothingMaskGas
+  fallbacks:
+  - ContractorClothingMaskBreath
+
+- type: loadoutGroup
+  id: PirateShoes
+  name: loadout-group-contractor-shoes
+  loadouts:
+  - PirateClothingShoesBootsLaceup
+  - PirateClothingShoesBootsPirateLuffy
+  fallbacks:
+  - PirateClothingShoesBootsLaceup
+
+- type: loadoutGroup
+  id: PirateHead
+  name: loadout-group-contractor-head
+  minLimit: 0
+  loadouts:
+  - PirateClothingHeadBandBlack
+  - PirateClothingHeadBandBrown
+  - PirateClothingHeadBandGrey
+  - PirateClothingHeadBandRed
+  fallbacks:
+  - PirateClothingHeadBandBlack
+
+- type: loadoutGroup
+  id: PirateFirstMateHead
+  name: loadout-group-contractor-head
+  minLimit: 0
+  loadouts:
+  - PirateClothingHeadHatPirateTricord
+  - PirateClothingHeadHatPirateLuffy
+  fallbacks:
+  - PirateClothingHeadHatPirateTricord
+
+- type: loadoutGroup
+  id: PirateCaptainHead
+  name: loadout-group-contractor-head
+  minLimit: 0
+  loadouts:
+  - PirateClothingHeadHatPirate
+  - PirateClothingHeadHatPirateLuffy
+  fallbacks:
+  - PirateClothingHeadHatPirate
 
 # Pirate Captain loadouts
 
 - type: loadoutGroup
   id: PirateCaptainPDA
   name: loadout-group-contractor-id
+  hidden: true # No point in showing this, it gets auto-selected.
   loadouts:
   - PirateCaptainPirateCaptainNFPDA
   fallbacks:
@@ -41,6 +89,7 @@
 - type: loadoutGroup
   id: PirateFirstMatePDA
   name: loadout-group-contractor-id
+  hidden: true # No point in showing this, it gets auto-selected.
   loadouts:
   - PirateFirstMatePirateFirstMateNFPDA
   fallbacks:

@@ -1,3 +1,13 @@
+# Author Info
+# GitHub: Tych0theSynth
+# Discord: Tych0
+
+# Maintainer Info
+# GitHub: Tych0theSynth
+# Discord: Tych0
+
+# Shuttle Notes:
+#
 - type: vessel
   id: Bottleneck
   name: NT Bottleneck
@@ -5,7 +15,11 @@
   price: 14000
   category: Small
   group: Sr
+  access: HeadOfPersonnel
   shuttlePath: /Maps/_NF/Shuttles/Sr/bottleneck.yml
+  guidebookPage: Null
+  class:
+  - Civilian
 
 - type: gameMap
   id: Bottleneck
