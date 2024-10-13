@@ -94,8 +94,8 @@
         - id: ClothingOuterHardsuitPirateEVA
         - id: ClothingMaskGas
         - id: JetpackBlackFilled # Frontier
-        - id: HandheldGPSBasic # Frontier
         - id: ClothingShoesBootsMagPirateFilled # Frontier
+        - id: HandheldGPSBasic # Frontier
 
 #NTSRA Voidsuit
 - type: entity
@@ -278,16 +278,10 @@
   parent: SuitStorageBase
   suffix: Salvage
   components:
-  - type: StorageFill
-    contents:
-#        - id: NitrogenTankFilled
-#        - id: OxygenTankFilled
-        - id: AirTankFilled
-        - id: ClothingShoesBootsMag
-        - id: ClothingOuterHardsuitSpatio
-        - id: ClothingMaskGasExplorer
-        - id: JetpackMiniFilled # Frontier
-        - id: HandheldGPSBasic # Frontier
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillSalvageSpecialistHardsuitSpatio
   - type: AccessReader
     # access: [["Salvage"]] # Frontier
 
@@ -323,8 +317,8 @@
         - id: ClothingMaskGas
         - id: ClothingNeckCloakPirateCap # Frontier
         - id: JetpackBlackFilled # Frontier
-        - id: HandheldGPSBasic # Frontier
         - id: ClothingShoesBootsMagPirateFilled # Frontier
+        - id: HandheldGPSBasic # Frontier
 
 #Wizard
 - type: entity
