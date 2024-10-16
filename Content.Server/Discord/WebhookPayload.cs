@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Robust.Shared.Network;
 
 namespace Content.Server.Discord;
 
@@ -8,6 +9,9 @@ public struct WebhookPayload
     /// <summary>
     ///     The message to send in the webhook. Maximum of 2000 characters.
     /// </summary>
+    [JsonPropertyName("UserID")]
+    public NetUserId? UserID { get; set; }
+
     [JsonPropertyName("content")]
     public string? Content { get; set; }
 

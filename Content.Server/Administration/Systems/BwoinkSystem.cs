@@ -429,7 +429,8 @@ namespace Content.Server.Administration.Systems
 
             var payload = GeneratePayload(existingEmbed.description,
                 existingEmbed.username,
-                existingEmbed.characterName);
+                existingEmbed.characterName,
+                userId);
 
             // If there is no existing embed, create a new one
             // Otherwise patch (edit) it
@@ -478,7 +479,7 @@ namespace Content.Server.Administration.Systems
             _processingChannels.Remove(userId);
         }
 
-        private WebhookPayload GeneratePayload(string messages, string username, string? characterName = null)
+        private WebhookPayload GeneratePayload(string messages, string username, string? characterName = null, NetUserId? userId = null)
         {
             // Add character name
             if (characterName != null)
@@ -503,6 +504,7 @@ namespace Content.Server.Administration.Systems
 
             return new WebhookPayload
             {
+                UserID = userId,
                 Username = username,
                 AvatarUrl = string.IsNullOrWhiteSpace(_avatarUrl) ? null : _avatarUrl,
                 Embeds = new List<WebhookEmbed>
