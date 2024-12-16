@@ -1025,7 +1025,7 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: BecomesStation
-      id: phoenix
+      id: Phoenix
 - proto: AirAlarm
   entities:
   - uid: 879
@@ -4955,7 +4955,7 @@ entities:
     - type: Transform
       pos: 5.5,4.5
       parent: 1
-- proto: SalvageCanisterSpawner
+- proto: StorageCanister
   entities:
   - uid: 648
     components:

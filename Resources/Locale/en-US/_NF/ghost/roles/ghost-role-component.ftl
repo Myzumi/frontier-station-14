@@ -1,4 +1,4 @@
-ghost-role-information-emotional-support-name = Emotional support pet
+ghost-role-information-emotional-support-name = Emotional Support Pet
 ghost-role-information-emotional-support-description = You're an emotional support pet! Loyal to your owner, make sure to cheer them up!
 ghost-role-information-emotional-support-rules = You are an [color=lightpink][bold]Emotional Support Pet[/bold][/color]. Support your owner, and serve your own interests.
                                         You don't remember any of your previous life, and you don't remember anything you learned as a ghost.
@@ -27,7 +27,7 @@ ghost-role-information-mistake-description = Ymg' ph'nglui ah li.
 ghost-role-information-ert-mailcarrier-name = ERT Mail Carrier
 ghost-role-information-ert-mailcarrier-description = Assist with delivery efforts to resolve the station's issues.
 
-ghost-role-information-baby-dragon-name = Baby space dragon
+ghost-role-information-baby-dragon-name = Baby Space Dragon
 ghost-role-information-baby-dragon-description = Hatch from your egg and go on incredible adventures with your mom and their crew!
 ghost-role-information-baby-dragon-rules = You are a [color=#6495ed][bold]Familiar[/bold][/color]. Serve the interests of your new mom, whatever those may be.
                                         You don't remember any of your previous life, and you don't remember anything you learned as a ghost.
@@ -46,6 +46,12 @@ ghost-role-information-yipyip-description = Notorious lounge lizard and bartende
 
 ghost-role-information-aberrant-flesh-horror-dungeon-name = Aberrant flesh horror
 ghost-role-information-aberrant-flesh-horror-dungeon-description = Defend the expedition dungeon with other flesh monstrosities!
+
+ghost-role-information-explorer-captain-dungeon-name = Explorer Captain
+ghost-role-information-explorer-captain-dungeon-description = You got to this facility first! Defend the expedition dungeon and your loot with other explorers!
+
+ghost-role-information-punk-boss-dungeon-name = Punk gang leader
+ghost-role-information-punk-boss-dungeon-description = Defend the expedition dungeon and your loot with other punks from NT squares!
 
 ghost-role-information-dungeon-boss-rules = You are a [color=red][bold]Team Antagonist[/bold][/color] with all dungeon mobs.
                                         Fight players within the dungeon, defend your dungeon.

@@ -240,6 +240,7 @@
   parent: BaseComputerCircuitboard
   id: TechDiskComputerCircuitboard
   name: tech disk terminal board
+  categories: [ HideSpawnMenu ] # Frontier: no tech disks
   description: A computer printed circuit board for a technology disk terminal.
   components:
   - type: Sprite
@@ -325,6 +326,8 @@
     prototype: ComputerRadar
   - type: ComputerTabletopBoard # Frontier
     prototype: ComputerTabletopRadar # Frontier
+  - type: ComputerWallmountBoard # Frontier
+    prototype: ComputerWallmountRadar # Frontier
 
 - type: entity
   parent: BaseComputerCircuitboard
@@ -337,6 +340,8 @@
     prototype: ComputerAdvancedRadar
   - type: ComputerTabletopBoard # Frontier
     prototype: ComputerTabletopAdvancedRadar # Frontier
+  - type: ComputerWallmountBoard # Frontier
+    prototype: ComputerWallmountAdvancedRadar # Frontier
 
 - type: entity
   parent: BaseComputerCircuitboard
@@ -443,19 +448,6 @@
       prototype: ComputerIFFSyndicate
     - type: ComputerTabletopBoard # Frontier
       prototype: ComputerTabletopIFFSyndicate # Frontier
-
-- type: entity
-  parent: BaseComputerCircuitboard
-  id: ShipyardComputerCircuitboard
-  name: shipyard computer board
-  description: A computer printed circuit board for a shipyard computer.
-  components:
-    - type: Sprite
-      state: cpu_supply
-    - type: ComputerBoard
-      prototype: ComputerShipyard
-    - type: ComputerTabletopBoard # Frontier
-      prototype: ComputerTabletopShipyard # Frontier
 
 - type: entity
   parent: BaseComputerCircuitboard

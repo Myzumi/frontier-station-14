@@ -2,7 +2,7 @@
 # For produce that can't be immediately eaten
 
 - type: entity
-  parent: BaseItem
+  parent: [BaseItem, RecyclableItemOrganicTiny] # Frontier: added RecyclableItemOrganicTiny
   id: ProduceBase
   abstract: true
   components:
@@ -944,7 +944,6 @@
   - type: Tag
     tags:
     - Fruit # Fuck you they're a fruit
-    - BloodFood
     - Vegetable
   - type: FoodSequenceElement
     entries:
@@ -1764,17 +1763,17 @@
       food:
         maxVol: 10
         reagents:
-        - ReagentId: Nutriment
-          Quantity: 5
+#        - ReagentId: Nutriment # Frontier
+#          Quantity: 5 # Frontier
         - ReagentId: Sulfur
-          Quantity: 5
+          Quantity: 10 # Frontier: 5<10
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/gatfruit.rsi
   - type: Produce
     seedId: gatfruit
   - type: Food
     trash:
-    - WeaponRevolverPythonGrown # Frontier: WeaponRevolverPython<WeaponRevolverPythonGrown
+    - WeaponRevolverPython
   - type: Tag
     tags:
     - Fruit # It's in the name
@@ -1782,6 +1781,7 @@
     entries:
       Taco: Gatfruit
       Burger: GatfruitBurger
+  - type: BadFood # Frontier: Nope
 
 - type: entity
   name: capfruit
@@ -1797,10 +1797,10 @@
       food:
         maxVol: 10
         reagents:
-        - ReagentId: Nutriment
-          Quantity: 5
+#        - ReagentId: Nutriment # Frontier
+#          Quantity: 5 # Frontier
         - ReagentId: Sulfur
-          Quantity: 5
+          Quantity: 10 # Frontier: 5<10
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/capfruit.rsi
   - type: Produce
@@ -1815,6 +1815,7 @@
     entries:
       Taco: Capfruit
       Burger: CapfruitBurger
+  - type: BadFood # Frontier: Nope
 
 - type: entity
   name: capfruit
@@ -2464,6 +2465,7 @@
     tags:
     - ClothMade
     - CottonBoll
+  - type: MothFood # Frontier
 
 - type: entity
   name: pyrotton boll
@@ -2497,6 +2499,7 @@
     - CottonBoll
   - type: Extractable
     grindableSolutionName: food
+  - type: MothFood # Frontier
 
 - type: entity
   name: cherry

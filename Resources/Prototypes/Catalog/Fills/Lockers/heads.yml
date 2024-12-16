@@ -17,6 +17,7 @@
     - id: RubberStampApproved
     - id: RubberStampDenied
     - id: RubberStampQm
+#    - id: AstroNavCartridge # Frontier
     - id: ClothingBeltUtilityEngineering # Frontier
 
 - type: entity
@@ -72,7 +73,6 @@
 #    - id: OxygenTankFilled # Frontier
     - id: AirTankFilled # Frontier
     - id: JetpackMiniFilled # Frontier
-    - id: HandheldGPSBasic # Frontier
 
 # No laser locker, used when the antique laser is placed in the special display crate
 - type: entity
@@ -182,7 +182,6 @@
 #    - id: OxygenTankFilled # Frontier
     - id: AirTankFilled # Frontier
     - id: JetpackMiniFilled # Frontier
-    - id: HandheldGPSBasic # Frontier
 
 # No hardsuit locker
 - type: entity
@@ -230,6 +229,7 @@
 #    - id: MedicalTechFabCircuitboard # Frontier - bloat
 #    - id: MedkitFilled # Frontier - bloat
     - id: RubberStampCMO
+    - id: MedTekCartridge
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -241,7 +241,6 @@
 #    - id: OxygenTankFilled # Frontier
     - id: AirTankFilled # Frontier
     - id: JetpackMiniFilled # Frontier
-    - id: HandheldGPSBasic # Frontier
 
 # No hardsuit locker
 - type: entity
@@ -274,6 +273,7 @@
   id: LockerFillResearchDirectorNoHardsuit
   table: !type:AllSelector
     children:
+#    - id: Intellicard # Frontier
 #    - id: BoxEncryptionKeyScience # Frontier
 #    - id: CircuitImprinterMachineCircuitboard # Frontier
     - id: ClothingBeltUtilityEngineering # Frontier: ClothingBeltUtilityFilled<ClothingBeltUtilityEngineering
@@ -294,7 +294,6 @@
 #    - id: OxygenTankFilled # Frontier
     - id: AirTankFilled # Frontier
     - id: JetpackMiniFilled # Frontier
-    - id: HandheldGPSBasic # Frontier
 
 # No hardsuit locker
 - type: entity
@@ -364,7 +363,6 @@
     - id: JetpackSecurityFilled
 #    - id: OxygenTankFilled # Frontier
     - id: AirTankFilled # Frontier
-    - id: HandheldGPSBasic # Frontier
     - id: ClothingShoesBootsMagCombatFilled # Frontier
 
 # No hardsuit locker

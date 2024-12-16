@@ -51,10 +51,6 @@
   - type: GunSignalControl
   - type: StaticPrice
     price: 1500
-  - type: MobState # Frontier (otherwise NPCs won't attack the entity)
-  - type: NpcFactionMember # Frontier
-    factions: # Frontier
-    - NanoTrasen # Frontier
   - type: Repairable # Frontier
     doAfterDelay: 3 # Frontier
 
@@ -174,7 +170,7 @@
 
 - type: entity
   id: ShuttleGunFriendship
-  parent: [ShuttleGunBase, ConstructibleMachine]
+  parent: [ShuttleGunBase] # Frontier: Removed ConstructibleMachine
   name: EXP-320g "Friendship"
   description: A small stationary grenade launcher that holds 2 grenades.
   suffix: DO NOT MAP

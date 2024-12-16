@@ -1,6 +1,36 @@
-- type: Tag
-  id: CaveFactory
+# Dungeon
 
+- type: Tag
+  id: NFCaveFactory
+
+- type: Tag
+  id: NFSalvageExperiment
+
+- type: Tag
+  id: NFHaunted
+
+- type: Tag
+  id: NFLavaBrig
+
+- type: Tag
+  id: NFLavaMercenary
+
+- type: Tag
+  id: NFMineshaft
+
+- type: Tag
+  id: NFSalvageOutpost
+
+- type: Tag
+  id: NFSnowyLabs
+
+- type: Tag
+  id: NFVirologyLab
+
+- type: Tag
+  id: NFWreck
+
+# Misc
 - type: Tag
   id: DockTransit
 
@@ -65,23 +95,17 @@
   id: LightReplacer
 
 - type: Tag
-  id: VirologyLab
+  id: HoverbikeKeys
 
 - type: Tag
-  id: SalvageOutpost
-  
-- type: Tag
-  id: HoverbikeKeys
-  
-- type: Tag
   id: WeaponRifleNovaliteC1
-  
+
 - type: Tag
   id: MagazineNovaliteC1
 
 - type: Tag
   id: TrackingDart
-  
+
 - type: Tag
   id: SpeedLoaderRifleHeavy
 
@@ -96,3 +120,18 @@
 
 - type: Tag
   id: BrassKnucklesNF
+
+- type: Tag
+  id: MaterialHideRosyMothroach
+
+- type: Tag
+  id: Sushi
+
+- type: Tag
+  id: NFButterStick
+
+- type: Tag
+  id: NFVGRoidInterior
+
+- type: Tag
+  id: NFFoamRPG

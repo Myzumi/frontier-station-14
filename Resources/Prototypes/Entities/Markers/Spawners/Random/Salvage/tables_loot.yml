@@ -35,6 +35,10 @@
       weight: 0.5
       amount: !type:RangeNumberSelector
         range: 1, 3
+    - id: CrayonBox # Frontier
+      weight: 0.01 # Frontier
+    - id: CrayonMagic # Frontier
+      weight: 0.0001 # Frontier
 
 - type: entityTable
   id: SalvageScrapHighValue
@@ -123,8 +127,8 @@
     children:
     - id: MaterialDiamond1
     - id: TreasureCPUSupercharged
-    - id: TechnologyDiskRare
-      weight: 0.5
+    # - id: TechnologyDiskRare # Frontier
+    #   weight: 0.5 # Frontier
     - id: ResearchDisk10000
       weight: 0.5
     - id: ArabianLamp
@@ -187,15 +191,20 @@
     - id: FlashlightLantern
     - id: FireExtinguisher
     - id: SurvivalKnife
+    - !type:GroupSelector # Frontier
+      children: # Frontier
+      - id: BoxInflatable # Frontier
+      - id: BoxLighttube # Frontier
+      - id: BoxLightbulb # Frontier
 
 - type: entityTable
   id: SalvageEquipmentUncommon
   table: !type:GroupSelector
     children:
     - id: OreBag
-    - id: HandheldGPSBasic
+#    - id: HandheldGPSBasic # Frontier - Useless
     - id: PowerCellHighPrinted
-    - id: RadioHandheld
+    - id: RadioHandheldNF # Frontier RadioHandheld<RadioHandheldNF
     - id: ClothingBeltUtility
     - id: Floodlight
     - id: WeaponProtoKineticAccelerator
@@ -212,15 +221,16 @@
         weight: 0.25
       - id: ClothingHeadHatWeldingMaskPainted
         weight: 0.1
+    - id: ClothingBeltQuiverCrossbowFilledBolt # Frontier
 
 - type: entityTable
   id: SalvageEquipmentRare
   table: !type:GroupSelector
     children:
-    - id: FultonBeacon
-    - id: Fulton
-      amount: !type:RangeNumberSelector
-        range: 1, 3
+#    - id: FultonBeacon # Frontier
+#    - id: Fulton # Frontier
+#      amount: !type:RangeNumberSelector # Frontier
+#        range: 1, 3 # Frontier
     - id: HandHeldMassScanner
     - id: WeaponCrusherDagger
     - id: MiningDrill
@@ -234,19 +244,21 @@
     - !type:GroupSelector
       children:
       - id: JetpackBlue
-      - id: JetpackBlack
+      - id: JetpackMini # Frontier JetpackBlack<JetpackMini
+    - id: MysterySpaceBladeBox # Frontier
+    - id: CrossbowModernHand # Frontier
 
 - type: entityTable
   id: SalvageEquipmentLegendary
   table: !type:GroupSelector
     children:
     - id: AdvancedMineralScanner
-    - id: BlueprintFulton
-    - id: BlueprintSeismicCharge
+#    - id: BlueprintFulton # Frontier
+#    - id: BlueprintSeismicCharge # Frontier
     - id: WeaponCrusherGlaive
     - id: ClothingOuterHardsuitSalvage
     - id: OmnizineChemistryBottle
     - !type:GroupSelector
       children:
       - id: JetpackBlueFilled
-      - id: JetpackBlackFilled
+      - id: JetpackMiniFilled # Frontier JetpackBlackFilled<JetpackMiniFilled

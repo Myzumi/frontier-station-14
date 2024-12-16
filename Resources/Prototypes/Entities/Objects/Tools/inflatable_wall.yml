@@ -1,11 +1,10 @@
 - type: entity
   id: InflatableWallStack
-  parent: BaseItem
+  parent: [BaseItem, RecyclableItemPlasticSmall] # Frontier: added RecyclableItemPlasticSmall
   name: inflatable barricade
   description: A folded membrane which rapidly expands into a large cubical shape on activation.
   suffix: Full
   components:
-    - type: ConstructionMaterials # Frontier
     - type: Stack
       stackType: InflatableWall
       count: 10
@@ -20,23 +19,16 @@
       doAfter: 1
       removeOnInteract: true
     - type: Clickable
-    - type: Tag
-      tags:
-        - DroneUsable
-    - type: StaticPrice # Frontier
-      price: 7.5 # Frontier - tests at 0
-    # - type: StackPrice # Frontier
-    #   price: 7.5 # Frontier: TODO: fix value
+    - type: ConstructionMaterials # Frontier
 # TODO: Add stack sprites + visuals.
 
 - type: entity
   id: InflatableDoorStack
-  parent: BaseItem
+  parent: [BaseItem, RecyclableItemPlasticSmall] # Frontier: added RecyclableItemPlasticSmall
   name: inflatable door
   description: A folded membrane which rapidly expands into a large cubical shape on activation.
   suffix: Full
   components:
-    - type: ConstructionMaterials # Frontier
     - type: Stack
       stackType: InflatableDoor
       count: 4
@@ -51,13 +43,7 @@
       doAfter: 1
       removeOnInteract: true
     - type: Clickable
-    - type: Tag
-      tags:
-        - DroneUsable
-    - type: StaticPrice # Frontier
-      price: 15 # Frontier - TODO: tests at 0
-    # - type: StackPrice # Frontier
-    #   price: 15 # Frontier: TODO: fix value
+    - type: ConstructionMaterials # Frontier
 # TODO: Add stack sprites + visuals.
 
 - type: entity

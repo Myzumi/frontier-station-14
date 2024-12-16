@@ -15,9 +15,11 @@
   - ShipyardBulker
   - ShipyardCamper
   - ShipyardCeres
+  - ShipyardCharon
   - ShipyardChisel
   - ShipyardComet
   - ShipyardConstruct
+  - ShipyardEagle
   - ShipyardGarden
   - ShipyardGasbender
   - ShipyardGourd
@@ -35,6 +37,7 @@
   - ShipyardMcCargo
   - ShipyardMcDelivery
   - ShipyardPathfinder
+  - ShipyardPhoenix
   - ShipyardPioneer
   - ShipyardPlacebo
   - ShipyardProspector
@@ -101,6 +104,11 @@
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Ceres.xml"
 
 - type: guideEntry
+  id: ShipyardCharon
+  name: guide-entry-shipyard-charon
+  text: "/ServerInfo/_NF/Guidebook/Shipyard/Charon.xml"
+
+- type: guideEntry
   id: ShipyardChisel
   name: guide-entry-shipyard-chisel
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Chisel.xml"
@@ -114,6 +122,11 @@
   id: ShipyardConstruct
   name: guide-entry-shipyard-construct
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Construct.xml"
+
+- type: guideEntry
+  id: ShipyardEagle
+  name: guide-entry-shipyard-eagle
+  text: "/ServerInfo/_NF/Guidebook/Shipyard/Eagle.xml"
 
 - type: guideEntry
   id: ShipyardGarden
@@ -199,7 +212,12 @@
   id: ShipyardPathfinder
   name: guide-entry-shipyard-pathfinder
   text: "/ServerInfo/_NF/Guidebook/Shipyard/Pathfinder.xml"
-
+  
+- type: guideEntry
+  id: ShipyardPhoenix
+  name: guide-entry-shipyard-phoenix
+  text: "/ServerInfo/_NF/Guidebook/Shipyard/Phoenix.xml"
+  
 - type: guideEntry
   id: ShipyardPioneer
   name: guide-entry-shipyard-pioneer

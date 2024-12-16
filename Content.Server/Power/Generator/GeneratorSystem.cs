@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Audio;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Materials;
@@ -12,6 +11,7 @@ using Content.Shared.Power.Generator;
 using Robust.Server.GameObjects;
 using Content.Shared.Radiation.Components; // Frontier
 using Content.Shared.Audio; // Frontier
+using Content.Shared.Materials; // Frontier
 
 namespace Content.Server.Power.Generator;
 

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Content.Server.Construction.Components;
 using Content.Shared.Construction.Components;
@@ -49,15 +49,10 @@ public sealed class MachineBoardTest
                     continue;
                 var mId = mbc.Prototype;
 
-                // Frontier: we accept null as board prototypes, but this will fail the assertions.
-                if (mId == "Null")
-                    continue;
-                // End Frontier
-
                 Assert.Multiple(() =>
                 {
                     Assert.That(protoMan.TryIndex<EntityPrototype>(mId, out var mProto),
-                        $"Machine board {p.ID}'s corresponding machine has an invalid prototype."); // Frontier
+                        $"Machine board {p.ID}'s corresponding machine has an invalid prototype.");
                     Assert.That(mProto.TryGetComponent<MachineComponent>(out var mComp, compFact),
                         $"Machine board {p.ID}'s corresponding machine {mId} does not have MachineComponent");
                     Assert.That(mComp.Board, Is.EqualTo(p.ID),

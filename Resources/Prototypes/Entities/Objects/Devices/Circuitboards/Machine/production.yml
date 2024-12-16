@@ -80,6 +80,7 @@
   id: SecurityTechFabCircuitboard
   parent: BaseMachineCircuitboard
   name: security techfab machine board
+  categories: [ HideSpawnMenu ] # Frontier
   description: A machine printed circuit board for a security techfab.
   components:
     - type: Sprite
@@ -127,6 +128,8 @@
           defaultPrototype: Beaker
     - type: StealTarget
       stealGroup: MedicalTechFabCircuitboard
+    - type: PirateBountyItem # Frontier
+      id: MedicalTechFabCircuitboard # Frontier
 
 - type: entity
   id: CircuitImprinterMachineCircuitboard
@@ -207,8 +210,8 @@
     state: service
   - type: MachineBoard
     prototype: Biogenerator
-    stackRequirements:
-      MatterBin: 2
+    requirements: # Frontier
+      MatterBin: 2 # Frontier stackRequirements<requirements
     tagRequirements:
       GlassBeaker:
         amount: 1
@@ -279,6 +282,8 @@
         Capacitor: 1 # Frontier stackRequirements<requirements
       stackRequirements:
         Glass: 5
+    - type: PirateBountyItem # Frontier
+      id: ArtifactAnalyzerMachineCircuitboard # Frontier
 
 - type: entity
   id: ArtifactCrusherMachineCircuitboard
@@ -580,7 +585,8 @@
     - type: MachineBoard
       prototype: ChemDispenserEmpty
       requirements: # Frontier
-        Capacitor: 1 # Frontier stackRequirements<requirements
+        # Capacitor: 1 # Frontier stackRequirements<requirements
+        MatterBin: 1 # Frontier: upgrades number of stored jugs
       stackRequirements:
         Glass: 1
         Steel: 3
@@ -1194,6 +1200,8 @@
       state: service
     - type: MachineBoard
       prototype: BoozeDispenserEmpty
+      requirements: # Frontier
+        MatterBin: 1 # Frontier
       stackRequirements:
         Steel: 5
       tagRequirements:
@@ -1226,6 +1234,8 @@
       state: service
     - type: MachineBoard
       prototype: SodaDispenserEmpty
+      requirements: # Frontier
+        MatterBin: 1 # Frontier
       stackRequirements:
         Steel: 5
       tagRequirements:
@@ -1286,9 +1296,10 @@
   components:
   - type: MachineBoard
     prototype: StationAnchor
+    requirements: # Frontier
+      Capacitor: 4 # Frontier stackRequirements<requirements
+      MatterBin: 3 # Frontier stackRequirements<requirements
     stackRequirements:
-      Capacitor: 4
-      MatterBin: 3
       Steel: 10
       Glass: 5
       CableHV: 8
@@ -1328,8 +1339,9 @@
   components:
   - type: MachineBoard
     prototype: CutterMachine
+    requirements: # Frontier
+      Capacitor: 1 # Frontier stackRequirements<requirements
+      Manipulator: 1 # Frontier stackRequirements<requirements
     stackRequirements:
       Steel: 2
-      Capacitor: 1
-      Manipulator: 1
       Cable: 1

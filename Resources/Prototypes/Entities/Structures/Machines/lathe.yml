@@ -19,6 +19,11 @@
           - MachineLayer
   - type: Lathe
   - type: MaterialStorage
+    whitelist: # Frontier
+      tags: # Frontier
+        - Sheet # Frontier
+        - RawMaterial # Frontier
+        - Ingot # Frontier
   - type: Destructible
     thresholds:
     - trigger:
@@ -50,7 +55,7 @@
   - type: ResearchClient
   - type: TechnologyDatabase
   - type: MaterialStorageMagnetPickup # Frontier
-    range: 0.30
+    range: 0.30 # Frontier
 
 # a lathe that can be sped up with space lube / slowed down with glue
 - type: entity
@@ -61,7 +66,7 @@
   - type: ReagentSpeed
     solution: lube
     modifiers:
-      SpaceLube: 0.25
+      SpaceLube: 0.5 # Frontier: 0.25<0.5 (we double dip on time with lube and machine parts)
       SpaceGlue: 5
   - type: SolutionContainerManager
     solutions:
@@ -80,11 +85,11 @@
   components:
   - type: Lathe
     materialUseMultiplier: 0.5
-    timeMultiplier: 1.5
+    timeMultiplier: 3 # Frontier: 1.5<3 (we double dip on time with lube and machine parts)
   - type: LatheHeatProducing
   - type: ReagentSpeed
     modifiers:
-      SpaceLube: 0.8 # being faster means less heat so lube needs to be nerfed
+      SpaceLube: 0.5 # Frontier: 0.8<0.5
       SpaceGlue: 5 # no change from normal lathe, overheat!!!
 
 - type: entity
@@ -134,7 +139,7 @@
       - CableStack
       - CableMVStack
       - CableHVStack
-      - HandheldGPSBasic
+#      - HandheldGPSBasic # Frontier
       - TRayScanner
       - AirTank
       - GasAnalyzer
@@ -165,6 +170,7 @@
       - FoodPlateSmallPlastic
       - FoodBowlBig
       - FoodPlateTin
+      - FoodPlateMuffinTin
       - FoodKebabSkewer
       - SprayBottle
       - MopItem
@@ -202,17 +208,12 @@
       - WetFloorSign
       - ClothingHeadHatCone
       - Flare
+      - FreezerElectronics
+      - BoxDispenserFlare # Frontier
       - Durathread # Frontier
-      - ClothingOuterSuitEmergency # Frontier
-      - ClothingHeadHelmetEVA # Frontier
-      - ClothingHeadHelmetEVALarge # Frontier
-      - ClothingOuterHardsuitEVA # Frontier
-      - ClothingOuterEVASuitContractor # Frontier
-      - ClothingOuterEVASuitPilot # Frontier
   - type: EmagLatheRecipes
     emagStaticRecipes:
       - BoxLethalshot
-      - BoxShotgunFlare
       - BoxShotgunSlug
       - CombatKnife
       - MagazineBoxLightRifle
@@ -249,6 +250,8 @@
   - type: EmptyOnMachineDeconstruct
     containers:
     - blueprint
+  - type: PirateBountyItem # Frontier
+    id: Autolathe # Frontier
 
 - type: entity
   id: AutolatheHyperConvection
@@ -357,6 +360,7 @@
       - HolofanProjector
       - BluespaceBeaker
       - SyringeBluespace
+      - JugBluespace # Frontier
       - VialBluespace # Frontier
       - Jug
       - WeaponCrusher
@@ -383,7 +387,6 @@
       - UtilityBeltChiefEngineer
       - JetpackVoid # Frontier
       - ClothingShoesBootsMagAdv # Frontier
-      - ClothingOuterHardsuitBasic # Frontier
       - ClothingOuterHardsuitAtmos # Frontier
       - ClothingOuterHardsuitEngineering # Frontier
       - ClothingOuterHardsuitSpatio # Frontier
@@ -400,8 +403,6 @@
       - ClothingOuterHardsuitScaf # Frontier
       - ClothingOuterHardsuitPilot # Frontier
       - ClothingOuterHardsuitMaximPrototype # Frontier
-      - ClothingHeadHelmetAncient # Frontier
-      - ClothingOuterHardsuitAncientEVA # Frontier
       - ConstructionBagOfHolding # Frontier
       - ServiceSelectiveDropper # Frontier
       - PlantAnalyzer # Frontier
@@ -448,6 +449,10 @@
       - WeaponXrayCannon
       - SpeedLoaderRifleHeavyIncendiary # Frontier
       - SpeedLoaderRifleHeavyUranium # Frontier
+      # Begin DeltaV additions
+      - LauncherSyringe
+      - MiniSyringe
+      # End DeltaV additions
 
 - type: entity
   id: ProtolatheHyperConvection
@@ -487,7 +492,7 @@
     - ProtolatheMachineCircuitboard
     - AutolatheMachineCircuitboard
     - CircuitImprinterMachineCircuitboard
-    - BiogeneratorMachineCircuitboard
+    # - BiogeneratorMachineCircuitboard # Frontier
     - OreProcessorMachineCircuitboard
     - ElectrolysisUnitMachineCircuitboard
     - CentrifugeMachineCircuitboard
@@ -496,6 +501,7 @@
     - UniformPrinterMachineCircuitboard
     - FloorGreenCircuit
     - FloorBlueCircuit
+    - FloorRedCircuit
     - MicrowaveMachineCircuitboard
     - ReagentGrinderMachineCircuitboard
     - ElectricGrillMachineCircuitboard
@@ -504,8 +510,9 @@
     - SpaceHeaterMachineCircuitBoard
     - CutterMachineCircuitboard
     - StationAnchorCircuitboard
-    - SalvageMagnetMachineCircuitboard
+    # - SalvageMagnetMachineCircuitboard # Frontier
     - SalvageTechFabCircuitboardNF # Frontier
+    - NFScrapProcessorCircuitboard # Frontier
     - BlueprintLithographMachineCircuitboard # Frontier
     dynamicRecipes:
       - ThermomachineFreezerMachineCircuitBoard
@@ -519,7 +526,7 @@
       - ChemMasterMachineCircuitboard
       - ChemDispenserMachineCircuitboard
       - BiomassReclaimerMachineCircuitboard
-      - BiofabricatorMachineCircuitboard
+      - BiogeneratorMachineCircuitboard # Frontier BiofabricatorMachineCircuitboard<BiogeneratorMachineCircuitboard
       - SurveillanceCameraRouterCircuitboard
       - SurveillanceCameraMonitorCircuitboard
       - SurveillanceWirelessCameraMonitorCircuitboard
@@ -544,7 +551,7 @@
       - SheetifierMachineCircuitboard
       - ShuttleConsoleCircuitboard
       - RadarConsoleCircuitboard
-      - TechDiskComputerCircuitboard
+      # - TechDiskComputerCircuitboard # Frontier: no tech disks
       - DawInstrumentMachineCircuitboard
       - CloningConsoleComputerCircuitboard
       - StasisBedMachineCircuitboard
@@ -573,7 +580,7 @@
       - ExosuitFabricatorMachineCircuitboard
       - AnomalyVesselCircuitboard
       - AnomalyVesselExperimentalCircuitboard
-      - AnomalySynchronizerCircuitboard
+      # - AnomalySynchronizerCircuitboard # Frontier: doesn't make sense for Frontier gameplay
       - APECircuitboard
       - ArtifactAnalyzerMachineCircuitboard
       - ArtifactCrusherMachineCircuitboard
@@ -706,6 +713,8 @@
     - BorgModuleDiagnosis
     - BorgModuleDefibrillator
     - BorgModuleAdvancedTreatment
+    - BorgModuleAdvancedParamedic # Frontier
+    - BorgModuleAdvancedMining # Frontier
     - RipleyHarness
     - RipleyLArm
     - RipleyRArm
@@ -740,6 +749,7 @@
   parent: BaseLathe
   name: biocube fabricator
   description: Produces animal cubes using biomass.
+  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     sprite: Structures/Machines/biofabricator.rsi
@@ -787,6 +797,7 @@
   parent: BaseLatheLube
   name: security techfab
   description: Prints equipment for use by security crew.
+  categories: [ HideSpawnMenu ] # Frontier
   components:
   - type: Sprite
     sprite: Structures/Machines/techfab.rsi
@@ -808,7 +819,6 @@
     runningState: icon
     staticRecipes:
       - BoxLethalshot
-      - BoxShotgunFlare
       - BoxShotgunPractice
       - BoxShotgunSlug
       - ClothingEyesHudSecurity
@@ -840,21 +850,14 @@
       - RiotShield
       - SpeedLoaderMagnum
       - SpeedLoaderMagnumEmpty
-      - SpeedLoaderRifleHeavy # Frontier
-      - SpeedLoaderRifleHeavyEmpty # Frontier
       - Stunbaton
       - TargetClown
       - TargetHuman
       - TargetSyndicate
       - WeaponDisablerPractice
+      - WeaponFlareGunSecurity
       - WeaponLaserCarbinePractice
       - Zipties
-      - ThrusterSecurityMachineCircuitboard # Frontier
-      - ClothingOuterSuitEmergency # Frontier
-      - ClothingOuterEVASuitNfsd # Frontier
-      - ClothingHeadHelmetEVA # Frontier
-      - ClothingHeadHelmetEVALarge # Frontier
-      - ClothingOuterHardsuitEVAPrisoner # Frontier
     dynamicRecipes:
       - BoxBeanbag
       - BoxShotgunIncendiary
@@ -906,13 +909,6 @@
       - WeaponLaserCannon
       - WeaponLaserCarbine
       - WeaponXrayCannon
-      - ContrabandAppraisalTool # Frontier
-      - SpeedLoaderRifleHeavyIncendiary # Frontier
-      - SpeedLoaderRifleHeavyUranium # Frontier
-      - MagazineBoxLightRifleRubber # Frontier
-      - MagazineBoxMagnumRubber # Frontier
-      - MagazineBoxPistolRubber # Frontier
-      - MagazineBoxRifleRubber # Frontier
   - type: MaterialStorage
     whitelist:
       tags:
@@ -922,7 +918,7 @@
 
 - type: entity
   id: AmmoTechFab
-  parent: BaseLatheLube
+  parent: [BlueprintReceiverBase, BaseLatheLube] # Frontier: added BlueprintReceiverBase
   name: ammo techfab
   description: Prints the bare minimum of bullets that any budget military or armory could need. Nothing fancy.
   components:
@@ -946,7 +942,6 @@
       runningState: icon
       staticRecipes:
         - BoxLethalshot
-        - BoxShotgunFlare
         - BoxShotgunSlug
         - BoxShellTranquilizer
         - MagazineBoxLightRifle
@@ -975,7 +970,7 @@
 
 - type: entity
   id: MedicalTechFab
-  parent: [ BaseLatheLube, BlueprintReceiverBase ] # Frontier: added BlueprintReceiverBase
+  parent: [ BlueprintReceiverBase, BaseLatheLube ] # Frontier: added BlueprintReceiverBase
   name: medical techfab
   description: Prints equipment for use by the medbay.
   components:
@@ -1035,20 +1030,25 @@
       - Hemostat
       - ClothingEyesGlassesChemical
       - WhiteCane
-      - ClothingOuterEVASuitMedic # Frontier
-      - ClothingOuterSuitEmergency # Frontier
-      - ClothingOuterHardsuitVoidParamed # Frontier
+      - ClothingOuterEVASuitMedic #Frontier
       - BaseChemistryEmptyVial # Frontier
       - PowerCellSmall # Frontier
+      - BlankMediPen # Frontier
+      - MedicalAppraisalTool # Frontier
     dynamicRecipes:
-      - VialBluespace # Frontier
       - ChemicalPayload
       - CryostasisBeaker
       - BluespaceBeaker
+      - JugBluespace # Frontier
       - SyringeBluespace
       - Jug
       - SyringeCryostasis
+      - VialBluespace # Frontier
       - ClothingOuterHardsuitMedical # Frontier
+      # Begin DeltaV additions
+      - LauncherSyringe
+      - MiniSyringe
+      # End DeltaV additions
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
@@ -1204,7 +1204,7 @@
       - ClothingOuterWinterSci
       - ClothingOuterWinterRobo
 #      - ClothingOuterWinterSec # Frontier
-      - ClothingOuterWinterCoatMail
+      - ClothingOuterWinterCoatMail # Frontier
       # Ties
       - ClothingNeckTieRed
       - ClothingNeckTieDet
@@ -1235,8 +1235,8 @@
       - FloorTileItemArcadeBlue # Frontier
       - FloorTileItemArcadeBlue2 # Frontier
       - FloorTileItemArcadeRed # Frontier
-#  - type: EmagLatheRecipes # Frontier
-#    emagStaticRecipes: # Frontier
+  - type: EmagLatheRecipes
+    emagStaticRecipes:
 #      - ClothingHeadHatCentcomcap # Frontier
 #      - ClothingHeadHatCentcom # Frontier
 #      - ClothingUniformJumpsuitCentcomAgent # Frontier
@@ -1244,21 +1244,21 @@
 #      - ClothingUniformJumpskirtCentcomFormalDress # Frontier
 #      - ClothingUniformJumpsuitCentcomOfficer # Frontier
 #      - ClothingUniformJumpsuitCentcomOfficial # Frontier
-#      - ClothingHeadHatSyndieMAA # Frontier
-#      - ClothingHeadHatSyndie # Frontier
-#      - ClothingUniformJumpsuitOperative # Frontier
-#      - ClothingUniformJumpskirtOperative # Frontier
-#      - ClothingUniformJumpsuitSyndieFormal # Frontier
-#      - ClothingUniformJumpskirtSyndieFormalDress # Frontier
-#      - ClothingHeadPyjamaSyndicateBlack # Frontier
-#      - ClothingUniformJumpsuitPyjamaSyndicateBlack # Frontier
-#      - ClothingHeadPyjamaSyndicatePink # Frontier
-#      - ClothingUniformJumpsuitPyjamaSyndicatePink # Frontier
-#      - ClothingHeadPyjamaSyndicateRed # Frontier
-#      - ClothingUniformJumpsuitPyjamaSyndicateRed # Frontier
+      - ClothingHeadHatSyndieMAA
+      - ClothingHeadHatSyndie
+      - ClothingUniformJumpsuitOperative
+      - ClothingUniformJumpskirtOperative
+      - ClothingUniformJumpsuitSyndieFormal
+      - ClothingUniformJumpskirtSyndieFormalDress
+      - ClothingHeadPyjamaSyndicateBlack
+      - ClothingUniformJumpsuitPyjamaSyndicateBlack
+      - ClothingHeadPyjamaSyndicatePink
+      - ClothingUniformJumpsuitPyjamaSyndicatePink
+      - ClothingHeadPyjamaSyndicateRed
+      - ClothingUniformJumpsuitPyjamaSyndicateRed
 #      - ClothingOuterWinterCentcom # Frontier
-#      - ClothingOuterWinterSyndie # Frontier
-#      - ClothingOuterWinterSyndieCap # Frontier
+      - ClothingOuterWinterSyndie
+      - ClothingOuterWinterSyndieCap
   - type: MaterialStorage
     whitelist:
       tags:
@@ -1288,8 +1288,6 @@
   - type: Machine
     board: BiogeneratorMachineCircuitboard
   - type: MaterialStorage
-    insertOnInteract: false
-    canEjectStoredMaterials: false
   - type: ProduceMaterialExtractor
   - type: ItemSlots
     slots:
@@ -1313,14 +1311,36 @@
     - BioGenEthanol
     - BioGenCream
     - BioGenBlackpepper
+    - BioGenAstrotame # Frontier
+    - BioGenBbq # Frontier
+    - BioGenCornoil # Frontier
+    - BioGenFrostoil # Frontier
+    - BioGenHotsauce # Frontier
+    - BioGenHorseradishSauce # Frontier
+    - BioGenKetchup # Frontier
+    - BioGenMustard # Frontier
+    - BioGenSoysauce # Frontier
+    - BioGenOilOlive # Frontier
     - BioGenEnzyme
     - BioGenFlour
+    - BioGenCornmeal # Frontier
     - BioGenSugar
+    - NFBioGenFoodMeat # Frontier
     - BioGenMonkeyCube
     - BioGenKoboldCube
+    - CowCube # Frontier: copied from Biofabricator above
+    - GoatCube # Frontier
+    - BioGenChickenCube # Frontier
+    - BioGenDuckCube # Frontier
+    - MothroachCube # Frontier
+    - MouseCube # Frontier
+    - CockroachCube # Frontier
     - BioGenMaterialCloth1
     - BioGenMaterialCardboard1
     - BioGenPaper
+    - NFBioGenWoodPlank # Frontier
+    - NFBioGenPaperSheet # Frontier
+    - NFBioGenSheetPlastic # Frontier
     - BioGenPaperRolling1
     - BioGenCandle
     - BioGenPlantBGone
@@ -1329,6 +1349,12 @@
     - BioGenLeft4Zed
     - BioGenEZNutrient
     - BioGenRobustHarvest
+    - NFBioGenHydroponicsSoilNutritionFlatpack
+  - type: EmagLatheRecipes # Frontier
+    emagStaticRecipes: # Frontier
+    - AbominationCube # Frontier
+    - SpaceCarpCube # Frontier
+    - SpaceTickCube # Frontier
 
 - type: entity
   parent: BaseLathe
@@ -1359,6 +1385,7 @@
       idleState: icon
       runningState: building
       defaultProductionAmount: 10
+      productValueModifier: null # Frontier
       staticRecipes:
         - SheetSteel
         - SheetGlass1
@@ -1509,6 +1536,7 @@
       - FloorTileItemShowroom # Frontier
       - FloorTileItemGCircuit # Frontier
       - FloorTileItemBCircuit # Frontier
+      - FloorTileItemRCircuit # Frontier
       - FloorTileItemGold # Frontier
       - FloorTileItemSilver # Frontier
       - FloorTileItemMono # Frontier
@@ -1559,3 +1587,4 @@
         - Wooden
         - RawMaterial
         - Plastic
+        - Ingot # Frontier
