@@ -2,3 +2,5 @@
 ui-options-general-forknotice = Note: These settings are fork-specific and might not apply on other servers.
 
 ui-options-no-filters = Disable species vision filters
+ui-options-enable-discord-ooc-name = Enable Discord OOC Name Color
+ui-options-enable-discord-ooc-text = Enable Discord OOC Text Color
