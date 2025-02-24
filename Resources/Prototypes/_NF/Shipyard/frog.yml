@@ -1,0 +1,38 @@
+# Author Info
+# GitHub: Myzumi (https://github.com/Myzumi)
+# Mapping: Yukari_tk (Discord)
+
+- type: vessel
+  id: Frog
+  parent: BaseVessel
+  name: CTC Frog
+  description: "A modern, medium-sized pharmacy vessel. It's equipped with a variety of medical machines to provide medical services to the Sector."
+  price: 60000 # Apprisal 42000
+  category: Medium
+  group: Medical
+  shuttlePath: /Maps/_NF/Shuttles/frog.yml
+  guidebookPage: Null
+  class:
+  - Medical
+  engine:
+  - Uranium
+
+- type: gameMap
+  id: Frog
+  mapName: 'CTC Frog'
+  mapPath: /Maps/_NF/Shuttles/frog.yml
+  minPlayers: 0
+  stations:
+    Frog:
+      stationProto: StandardFrontierVessel
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'Frog {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefixCreator: '14'
+        - type: StationJobs
+          availableJobs:
+            Contractor: [ 0, 0 ]
+            Pilot: [ 0, 0 ]
+            Mercenary: [ 0, 0 ]
