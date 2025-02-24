@@ -4,7 +4,6 @@
       <GuideEntityEmbed Entity="ComputerCrewMonitoring"/>
       <GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
       <GuideEntityEmbed Entity="RollerBed"/>
-      <GuideEntityEmbed Entity="BodyBag"/>
 	  <GuideEntityEmbed Entity="ChemMaster"/>
     </Box>
   [color=#a4885c]Ship Size:[/color] Medium
@@ -20,6 +19,8 @@
 	[color=#a4885c]IFF Console:[/color] None
 
 	[color=#a4885c]Available Roles:[/color] Contractor, Pilot, Mercenary
+
+  The Frog is a versatile medium-sized medical shuttle, equipped with essential medical equipment to support various medical operations.
 
   # Piloting
   <Box>
@@ -101,6 +102,6 @@
 
     ## Sidenotes
 
-  * - Vitalis-class vessels are equipped with five APC units that can be used to appraise the ship's total power consumption. Unmodified Vitalis-class vessels require 41 kW of power to remain operational.
+  * - Frog-class vessels are equipped with five APC units that can be used to appraise the ship's total power consumption. Unmodified Frog-class vessels require 41 kW of power to remain operational.
 
 </Document>
