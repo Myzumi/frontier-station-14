@@ -506,11 +506,6 @@ entities:
             796: 3,3
             797: 3,4
         - node:
-            color: '#52B4E996'
-            id: CheckerNESW
-          decals:
-            844: -1,9
-        - node:
             color: '#52B4E9FF'
             id: CheckerNESW
           decals:
