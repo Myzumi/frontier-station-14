@@ -1,0 +1,17 @@
+{
+  "name": "automated-map-render",
+  "version": "1.0.0",
+  "description": "Read Readme.MD for more information.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Myzumi",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "fs": "0.0.1-security",
+    "yaml": "^2.7.1"
+  }
+}
