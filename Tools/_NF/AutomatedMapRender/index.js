@@ -236,11 +236,13 @@ function RenameMappedFile(shuttle) {
   let ShipyardPath = path.join(__dirname, "ShuttleRenders", shuttle);
   const ShuttleName = shuttle.split(".")[0];
   let ShuttleFile = path.join(ShipyardPath, `${ShuttleName}-0.png`);
-  const ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
+  let ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
   if (fs.existsSync(ShuttleFile)) {
     fs.renameSync(ShuttleFile, ShuttleFileNew);
   } else {
     // The Linux version seem to uppercase the first letter of the shuttle name
+    ShipyardPath = path.join(__dirname, "ShuttleRenders", shuttle.replace(/^./, str => str.toUpperCase()));
+    ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
     ShuttleFile = path.join(ShipyardPath, `${ShuttleName.replace(/^./, str => str.toUpperCase())}-0.png`);
     if (fs.existsSync(ShuttleFile)) {
       fs.renameSync(ShuttleFile, ShuttleFileNew);
