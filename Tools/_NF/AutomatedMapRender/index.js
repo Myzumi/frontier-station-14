@@ -148,7 +148,7 @@ async function init() {
       }
       let NextShipyardPath = AllShuttleToRender.shift();
       let ShuttleToRender = NextShipyardPath.split("/").pop();
-      console.log(chalk.blue(`Starting MapRenderer for ${ShuttleToRender.split(".")[0]}, Taking ${CurrentInstances + 1} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
+      console.log(chalk.blue(`Starting MapRenderer for ${ShuttleToRender.split(".")[0]}, Taking ${PrettyPrintNumber(CurrentInstances+1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
       const Command = `cd ${Root} && dotnet run --project Content.MapRenderer --files ${ShuttleToRender} --output ${path.join(__dirname, "ShuttleRenders")}`;
       ShuttleToRender = ShuttleToRender.split(".")[0];
       if (Debug)
@@ -285,4 +285,11 @@ function parseShuttle(data) {
   // Filter out the unresolved-tag warning
   doc.warnings = doc.warnings.filter((w) => w.code !== "TAG_RESOLVE_FAILED");
   return doc.toJSON();
+}
+
+function PrettyPrintNumber(number) {
+  if (number === 1) return `${number}st`;
+    if (number === 2) return `${number}nd`;
+    if (number === 3) return `${number}rd`;
+    return `${number}th`;
 }
