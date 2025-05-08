@@ -268,7 +268,18 @@ function RenameMappedFile(shuttle) {
     ShuttleFile = path.join(ShipyardPath, `${ShuttleName.replace(/^./, str => str.toUpperCase())}-0.png`);
     if (fs.existsSync(ShuttleFile)) {
       fs.renameSync(ShuttleFile, ShuttleFileNew);
-    } else return console.log(Tags.error + chalk.red(`Failed to rename ${ShuttleFile}, file does not exist.`));
+    } else {
+      // Scan the folder for the rendered file and rename it to the correct name
+      const files = fs.readdirSync(ShipyardPath);
+      const fileToRename = files.find(file => file.startsWith(ShuttleName) && file.endsWith(".png"));
+      if (fileToRename) {
+        const oldPath = path.join(ShipyardPath, fileToRename);
+        fs.renameSync(oldPath, ShuttleFileNew);
+        console.log(Tags.info + chalk.green(`Renamed ${fileToRename} to ${ShuttleName}.png`));
+      } else {
+        console.log(Tags.error + chalk.red(`Failed to find the rendered file for ${ShuttleName}`));
+      }
+    }
   }
 }
 
