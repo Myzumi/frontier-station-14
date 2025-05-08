@@ -12,19 +12,6 @@ const MaxInstances = 2; // Maximum number of instances to run in parallel
 const Debug = false; // Set to true to enable debug mode, which will skip the 10 second wait and show more logs
 const SkipBuild = false; // Set to true to skip the build process of the MapRenderer, Not Recommended due to the required Toolbox Fixes
 //
-if (process.env.ENABLE_DEBUG) {
-  console.log(Tags.info + chalk.yellow("Debug mode enabled by environment variable."));
-  Debug = true;
-}
-if (process.env.MAX_INSTANCES) {
-  console.log(Tags.info + chalk.yellow(`Max instances set to ${process.env.MAX_INSTANCES} by environment variable.`));
-  MaxInstances = parseInt(process.env.MAX_INSTANCES);
-  if (isNaN(MaxInstances) || MaxInstances <= 0) {
-    console.log(Tags.error + chalk.red("Invalid value for MAX_INSTANCES, defaulting to 2."));
-    MaxInstances = 2;
-  }
-}
-
 const { exec } = require("child_process");
 const { processRobustFiles } = require("./RobustToolboxFixes.js");
 const fs = require("fs");
@@ -56,6 +43,18 @@ if (process.env.GITHUB_ACTIONS) {
   console.log(Tags.info + chalk.yellow(`This script is running in a GitHub Actions environment. Forcing Debug mode.`));
   Debug = true;
   MaxInstances = 1;
+}
+if (process.env.ENABLE_DEBUG) {
+  console.log(Tags.info + chalk.yellow("Debug mode enabled by environment variable."));
+  Debug = true;
+}
+if (process.env.MAX_INSTANCES) {
+  console.log(Tags.info + chalk.yellow(`Max instances set to ${process.env.MAX_INSTANCES} by environment variable.`));
+  MaxInstances = parseInt(process.env.MAX_INSTANCES);
+  if (isNaN(MaxInstances) || MaxInstances <= 0) {
+    console.log(Tags.error + chalk.red("Invalid value for MAX_INSTANCES, defaulting to 2."));
+    MaxInstances = 2;
+  }
 }
 setTimeout(
   async () => {
