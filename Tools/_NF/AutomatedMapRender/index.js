@@ -235,12 +235,16 @@ function AddExecLogs(exec, prefix = null, shuttle = null) {
 function RenameMappedFile(shuttle) {
   const ShipyardPath = path.join(__dirname, "ShuttleRenders", shuttle);
   const ShuttleName = shuttle.split(".")[0];
-  const ShuttleFile = path.join(ShipyardPath, `${ShuttleName}-0.png`);
+  let ShuttleFile = path.join(ShipyardPath, `${ShuttleName}-0.png`);
   const ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
   if (fs.existsSync(ShuttleFile)) {
     fs.renameSync(ShuttleFile, ShuttleFileNew);
   } else {
-    console.log(Tags.error + chalk.red(`Failed to rename ${ShuttleFile}, file does not exist.`));
+    // The Linux version seem to uppercase the first letter of the shuttle name
+    ShuttleFile = path.join(ShipyardPath, `${ShuttleName.replace(/^./, str => str.toUpperCase())}-0.png`);
+    if (fs.existsSync(ShuttleFile)) {
+      fs.renameSync(ShuttleFile, ShuttleFileNew);
+    } else return console.log(Tags.error + chalk.red(`Failed to rename ${ShuttleFile}, file does not exist.`));
   }
 }
 
