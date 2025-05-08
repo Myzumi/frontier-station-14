@@ -18,7 +18,14 @@ In order to Render Grid Maps.
 If Upstream should change the Lines or add new content to the files, it is simple to change the lines inside the RobustToolboxFixes `filesToModify` Variable.
 The Script will NOT Revert the Commented out lines, so if you Maintain or work with RobustToolbox you should revert these Lines afterwards.
 
+### WARNING!
+This Script will Modify Shuttle Files that will fail the Mapping Process due to a Missing Component (BecomesStation),
+When the Script will Modify the said file.
+It will Create a Backup before editing and restore it after the Process is Done, You should not exit beforehand.
+The Console Will log which file will be edited for this, which can also be seen by an error with the MapRenderer
 
+
+### The Script
 
 This Script was written to be Automated and used combined with a Service to Display the Renders.
 This will currently take all Shuttles existing in `Resources\Prototypes\_NF\Shipyard` but can be changed by editing the Path in index.js:8
