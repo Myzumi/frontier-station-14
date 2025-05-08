@@ -40,6 +40,11 @@ console.log(chalk.bgRed(chalk.yellow(`The Script will modify the EntityDeseriali
 console.log(chalk.bgRed(chalk.yellow(`${chalk.bold("WARNING:")} This script will modify Ship files!`)));
 console.log(chalk.bgRed(chalk.yellow(`The Script will modify Ship Mapping files and ${chalk.bold("WILL")} screw them up!`)));
 console.log(chalk.bgRed(chalk.yellow(`The Script will continue in 15 seconds. Press Ctrl+C to cancel.`)));
+if (process.env.GITHUB_ACTIONS) {
+  console.log(Tags.info + chalk.yellow(`This script is running in a GitHub Actions environment. Forcing Debug mode.`));
+  Debug = true;
+  MaxInstances = 1;
+}
 setTimeout(
   async () => {
     CleanUps();
@@ -48,6 +53,7 @@ setTimeout(
   },
   Debug ? 0 : 15000
 );
+
 
 function CleanUps() {
 if (fs.existsSync(path.join(__dirname, "ShuttleRenders")))
