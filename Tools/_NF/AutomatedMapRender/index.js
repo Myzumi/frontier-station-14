@@ -56,23 +56,23 @@ setTimeout(
 
 
 function CleanUps() {
-if (fs.existsSync(path.join(__dirname, "ShuttleRenders")))
-  fs.rmSync(path.join(__dirname, "ShuttleRenders"), { recursive: true, force: true });
+  if (fs.existsSync(path.join(__dirname, "ShuttleRenders")))
+    fs.rmSync(path.join(__dirname, "ShuttleRenders"), { recursive: true, force: true });
 
-if (fs.existsSync(path.join(__dirname, "ShipyardData.json")))
-  fs.rmSync(path.join(__dirname, "ShipyardData.json"), { recursive: true, force: true });
+  if (fs.existsSync(path.join(__dirname, "ShipyardData.json")))
+    fs.rmSync(path.join(__dirname, "ShipyardData.json"), { recursive: true, force: true });
 
-if (fs.existsSync(path.join(__dirname, "statistic.json")))
-  fs.rmSync(path.join(__dirname, "statistic.json"), { recursive: true, force: true });
+  if (fs.existsSync(path.join(__dirname, "statistic.json")))
+    fs.rmSync(path.join(__dirname, "statistic.json"), { recursive: true, force: true });
 
-if (fs.existsSync(path.join(__dirname, "ShuttleBackups")))
-  fs.rmSync(path.join(__dirname, "ShuttleBackups"), { recursive: true, force: true });
+  if (fs.existsSync(path.join(__dirname, "ShuttleBackups")))
+    fs.rmSync(path.join(__dirname, "ShuttleBackups"), { recursive: true, force: true });
 
-if (!fs.existsSync(path.join(__dirname, "ShuttleBackups")))
-  fs.mkdirSync(path.join(__dirname, "ShuttleBackups"), { recursive: true });
+  if (!fs.existsSync(path.join(__dirname, "ShuttleBackups")))
+    fs.mkdirSync(path.join(__dirname, "ShuttleBackups"), { recursive: true });
 
-if (!fs.existsSync(path.join(__dirname, "ShuttleRenders")))
-  fs.mkdirSync(path.join(__dirname, "ShuttleRenders"), { recursive: true });
+  if (!fs.existsSync(path.join(__dirname, "ShuttleRenders")))
+    fs.mkdirSync(path.join(__dirname, "ShuttleRenders"), { recursive: true });
 }
 async function init() {
   let ShipyardTypes = await FindShuttleFiles(ShipyardPath);
@@ -154,7 +154,7 @@ async function init() {
       }
       let NextShipyardPath = AllShuttleToRender.shift();
       let ShuttleToRender = NextShipyardPath.split("/").pop();
-      console.log(chalk.blue(`Starting MapRenderer for ${ShuttleToRender.split(".")[0]}, Taking ${PrettyPrintNumber(CurrentInstances+1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
+      console.log(chalk.blue(`Starting MapRenderer for ${ShuttleToRender.split(".")[0]}, Taking ${PrettyPrintNumber(CurrentInstances + 1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
       const Command = `cd ${Root} && dotnet run --project Content.MapRenderer --files ${ShuttleToRender} --output ${path.join(__dirname, "ShuttleRenders")}`;
       ShuttleToRender = ShuttleToRender.split(".")[0];
       if (Debug)
@@ -296,7 +296,7 @@ function parseShuttle(data) {
 
 function PrettyPrintNumber(number) {
   if (number === 1) return `${number}st`;
-    if (number === 2) return `${number}nd`;
-    if (number === 3) return `${number}rd`;
-    return `${number}th`;
+  if (number === 2) return `${number}nd`;
+  if (number === 3) return `${number}rd`;
+  return `${number}th`;
 }
