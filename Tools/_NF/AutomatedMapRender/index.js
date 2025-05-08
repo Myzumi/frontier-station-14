@@ -23,8 +23,7 @@ const Logs = {}
 let LockQueueClear = false;
 const ShuttlePaths = {}
 
-let DevFilter = [
-  "ceres"] // This should not be used. Only for testing purposes.
+let DevFilter = [] // This should not be used. Only for testing purposes.
 
 let SucceedShuttles = [];
 let EditedShuttles = [];
