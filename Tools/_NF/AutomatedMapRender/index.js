@@ -298,7 +298,12 @@ function FixMappingFile(shuttle) {
 }
 
 function EditShuttle(shuttle, ShuttleID) {
-  shuttle["entities"][0]["entities"][0]["components"].unshift({ type: "BecomesStation", id: ShuttleID });
+  let BecomesStation = shuttle["entities"][0]["entities"][0]["components"].find(component => component.type === "BecomesStation");
+  if (!BecomesStation) { shuttle["entities"][0]["entities"][0]["components"].unshift({ type: "BecomesStation", id: ShuttleID }); } else {
+    if (BecomesStation.id !== ShuttleID) {
+      BecomesStation.id = ShuttleID;
+    }
+  }
   return shuttle;
 }
 
