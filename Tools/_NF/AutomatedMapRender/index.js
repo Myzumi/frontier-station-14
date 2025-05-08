@@ -5,11 +5,11 @@ const path = require("path");
 const ShowContainerLogs = true; // Set to false to hide container logs
 const ShipyardPath = path.join(__dirname, "..", "..", "..", "Resources", "Prototypes", "_NF", "Shipyard"); // Path to the shuttle files
 const ShipRootPath = path.join(__dirname, "..", "..", "..", "Resources", "Maps", "_NF", "Shuttles"); // Path to the shuttle files
-const MaxInstances = 2; // Maximum number of instances to run in parallel
+let MaxInstances = 2; // Maximum number of instances to run in parallel
 
 // !! Do not edit below this line if you don't know what you're doing !!
 // Developer Settings;
-const Debug = false; // Set to true to enable debug mode, which will skip the 10 second wait and show more logs
+let Debug = false; // Set to true to enable debug mode, which will skip the 10 second wait and show more logs
 const SkipBuild = false; // Set to true to skip the build process of the MapRenderer, Not Recommended due to the required Toolbox Fixes
 //
 const { exec } = require("child_process");
