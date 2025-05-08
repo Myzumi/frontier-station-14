@@ -172,7 +172,7 @@ async function init() {
           }
           console.log(Tags.warning + chalk.yellow(`child process failed, shuttle: ${ShuttleToRender}. Launching Fixing process`));
           LockQueueClear = true;
-          let response = FixMappingFile(NextShipyardPath, AllShuttleToRender);
+          let response = FixMappingFile(NextShipyardPath);
           if (response) {
             FailedShuttles = FailedShuttles.filter((shuttle) => shuttle !== response);
             EditedShuttles.push(response);
@@ -257,6 +257,7 @@ function RenameMappedFile(shuttle) {
 }
 
 function FixMappingFile(shuttle) {
+  shuttle = shuttle.split("/").pop()
   let RelativePath = ShuttlePaths[shuttle];
   const BrokenShipyardPath = path.join(__dirname, RelativePath);
   const ShuttleName = shuttle.split(".")[0];
