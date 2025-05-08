@@ -166,7 +166,7 @@ async function init() {
         if (Debug) console.log(Tags.debug + chalk.cyan(`Instance ${ShuttleToRender} has finished, deducting one Instance. Now: ${CurrentInstances}/${MaxInstances} Instances`));
         CurrentInstances--;
         if (!FailedShuttles.includes(ShuttleToRender)) { console.log(Tags.info + chalk.green(`Finished MapRenderer for ${ShuttleToRender}`)) } else {
-          if (EditedShuttles.includes(ShuttleToRender)) {
+          if (EditedShuttles.includes(ShuttleToRender.split("/").pop())) {
             console.log(Tags.warning + chalk.yellow(`MapRenderer for ${ShuttleToRender} failed, but was already edited. Skipping Fixing process`));
             return;
           }
@@ -203,6 +203,11 @@ async function FindShuttleFiles(folderPath, shuttleFiles = [], rootFolder = fold
   return shuttleFiles;
 }
 
+let ErrorTiggers = [
+  "System.ArgumentException",
+  "[ERRO]"
+]
+
 function AddExecLogs(exec, prefix = null, shuttle = null) {
   if (!ShowContainerLogs) return;
 
@@ -213,7 +218,7 @@ function AddExecLogs(exec, prefix = null, shuttle = null) {
     Logs[shuttle].push(data);
 
     let color = "gray";
-    if (data.includes("[ERRO]")) {
+    if (ErrorTiggers.some((trigger) => data.includes(trigger))) {
       color = "bgRed";
       prefix = Tags.error + (prefix || "");
       if (shuttle && !FailedShuttles.includes(shuttle)) {
