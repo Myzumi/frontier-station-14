@@ -125,6 +125,7 @@ async function init() {
     delete yamlData[0].parent;
     delete yamlData[0].type;
     if (!ShipyardData[yamlData[0].group]) ShipyardData[yamlData[0].group] = [];
+    yamlData[0].renderDate = new Date().toISOString();
     ShipyardData[yamlData[0].group].push(yamlData[0]);
     AllShuttleToRender.push(file);
     const relativePath = path.relative(__dirname, path.join(ShipRootPath, file)).replace(/\\/g, "/");
