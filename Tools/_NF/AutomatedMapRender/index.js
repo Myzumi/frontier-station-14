@@ -250,7 +250,7 @@ async function init() {
             fs.renameSync(oldPath, newPath);
             // cleanup temp folder
             console.log(Tags.info + chalk.green(`Moved markers image ${latest} -> ${path.relative(__dirname, newPath)}`));
-            LockQueueClearMarkers = false;
+            if (ClearBlocker) LockQueueClearMarkers = false;
             if (fs.existsSync(markersOutputWithFileName))
               fs.rmSync(markersOutputWithFileName, { recursive: true, force: true });
           } catch (e) {
