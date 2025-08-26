@@ -8,8 +8,8 @@ const ShipRootPath = path.join(__dirname, "..", "..", "..", "Resources", "Maps",
 const OutputPath = path.join(__dirname, "ShuttleRenders"); // Path to output the rendered shuttles.
 // Files will be renamed to <ShuttleName>.png and <ShuttleName>-markers.png if markers are enabled.
 let MaxInstances = 2; // Maximum number of instances to run in parallel
-let UseMarkers = true; // Set to true to show Markers on the rendered image
-let SeparatedMarkerImage = true; // Set to true to output a second with markers enabled, while the first image is without markers
+let UseMarkers = false; // Set to true to show Markers on the rendered image
+let SeparatedMarkerImage = false; // Set to true to output a second with markers enabled, while the first image is without markers
 //!! Warning, Separated Markers will ignore the MaxInstances variable when //
 
 // !! Do not edit below this line if you don't know what you're doing !!//
