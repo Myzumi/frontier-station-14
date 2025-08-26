@@ -5,6 +5,8 @@ const path = require("path");
 const ShowContainerLogs = true; // Set to false to hide container logs
 const ShipyardPath = path.join(__dirname, "..", "..", "..", "Resources", "Prototypes", "_NF", "Shipyard"); // Path to the shuttle files
 const ShipRootPath = path.join(__dirname, "..", "..", "..", "Resources", "Maps", "_NF", "Shuttles"); // Path to the shuttle files
+const OutputPath = path.join(__dirname, "ShuttleRenders"); // Path to output the rendered shuttles.
+// Files will be renamed to <ShuttleName>.png and <ShuttleName>-markers.png if markers are enabled.
 let MaxInstances = 2; // Maximum number of instances to run in parallel
 let UseMarkers = true; // Set to true to show Markers on the rendered image
 let SeparatedMarkerImage = true; // Set to true to output a second with markers enabled, while the first image is without markers
@@ -20,10 +22,10 @@ const { processRobustFiles } = require("./RobustToolboxFixes.js");
 const fs = require("fs");
 const YAML = require("yaml");
 const chalk = require("chalk");
-const Root = path.join(__dirname, "..", "..", "..");
+const Root = path.join(__dirname, "..", "..", ".."); // Assuming the script is in Tools/_NF/AutomatedMapRender
 const Logs = {}
 let LockQueueClear = false;
-let LockQueueClearMarkers = false;
+let LockQueueClearMarkers = [];
 const ShuttlePaths = {}
 
 let DevFilter = [] // This should not be used. Only for testing purposes.
@@ -51,6 +53,13 @@ if (process.env.GITHUB_ACTIONS) {
 if (process.env.ENABLE_DEBUG) {
   console.log(Tags.info + chalk.yellow("Debug mode enabled by environment variable."));
   Debug = true;
+}
+if (process.env.OUTPUT_PATH) {
+  console.log(Tags.info + chalk.yellow("Output path set by environment variable."));
+  OutputPath = process.env.OUTPUT_PATH;
+  if (!fs.existsSync(OutputPath)) {
+    throw new Error("The specified OUTPUT_PATH does not exist, When using an environment variable, the path must exist already.");
+  }
 }
 if (process.env.MAX_INSTANCES) {
   console.log(Tags.info + chalk.yellow(`Max instances set to ${process.env.MAX_INSTANCES} by environment variable.`));
@@ -89,11 +98,11 @@ function CleanUps() {
   if (!fs.existsSync(path.join(__dirname, "ShuttleBackups")))
     fs.mkdirSync(path.join(__dirname, "ShuttleBackups"), { recursive: true });
 
-  if (!fs.existsSync(path.join(__dirname, "ShuttleRenders")))
-    fs.mkdirSync(path.join(__dirname, "ShuttleRenders"), { recursive: true });
+  if (!fs.existsSync(path.join(OutputPath)))
+    fs.mkdirSync(path.join(OutputPath), { recursive: true });
 
-  if (SeparatedMarkerImage && !fs.existsSync(path.join(__dirname, "ShuttleRenders", "markers")))
-    fs.mkdirSync(path.join(__dirname, "ShuttleRenders", "markers"), { recursive: true });
+  if (SeparatedMarkerImage && !fs.existsSync(path.join(OutputPath, "markers")))
+    fs.mkdirSync(path.join(OutputPath, "markers"), { recursive: true });
 
 }
 async function init() {
@@ -150,7 +159,7 @@ async function init() {
       return;
     }
     if (AllShuttleToRender.length === 0 && CurrentInstances === 0) {
-      if (LockQueueClear || LockQueueClearMarkers) return console.log(Tags.warning + chalk.yellow("Another Action is requiring a QueueLock, waiting for Action to end."));
+      if (LockQueueClear || LockQueueClearMarkers.length > 0) return console.log(Tags.warning + chalk.yellow("Another Action is requiring a QueueLock, waiting for Action to end."));
       clearInterval(Queue);
       if (EditedShuttles.length !== 0) {
         EditedShuttles.forEach((shuttle) => {
@@ -167,7 +176,7 @@ async function init() {
       }
       console.log(Tags.info + chalk.green("All shuttles have been rendered and it was cleaned up, Exiting..."));
       fs.writeFileSync(path.join(__dirname, "statistic.json"), JSON.stringify({ succeed: SucceedShuttles, edited: EditedShuttles, failed: FailedShuttles }, null, 2), "utf8");
-      if (SeparatedMarkerImage) fs.rmSync(path.join(__dirname, "ShuttleRenders", "markers"), { recursive: true, force: true });
+      if (SeparatedMarkerImage) fs.rmSync(path.join(OutputPath, "markers"), { recursive: true, force: true });
       return;
     }
     if (CurrentInstances < MaxInstances) {
@@ -180,7 +189,7 @@ async function init() {
       let ShuttleName = ShuttleToRender.split(".")[0];
       console.log(chalk.blue(`Starting MapRenderer for ${ShuttleName}, Taking ${PrettyPrintNumber(CurrentInstances + 1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
       const relativeShuttlePath = path.relative(path.join(Root, "Resources"), path.join(ShipRootPath, NextShipyardPath)).replace(/\\/g, "/");
-      const baseCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files /${relativeShuttlePath} --output ${path.join(__dirname, "ShuttleRenders")}`;
+      const baseCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files /${relativeShuttlePath} --output ${path.join(OutputPath)}`;
       // Build main command. If UseMarkers is true and SeparatedMarkerImage is false -> add markers to main run.
       const mainCommand = baseCommand + (UseMarkers && !SeparatedMarkerImage ? " --markers" : "");
 
@@ -194,7 +203,7 @@ async function init() {
       // If markers should be produced as a separate image, spawn a second run that ignores MaxInstances.
       if (UseMarkers && SeparatedMarkerImage) {
         // Use a temp output folder for markers so it cannot overwrite the main render files
-        const markersOutput = path.join(__dirname, "ShuttleRenders", "markers");
+        const markersOutput = path.join(OutputPath, "markers");
         // ensure the temp folder is clean
         const markersCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files /${relativeShuttlePath} --output ${markersOutput} --markers`;
         if (Debug) console.log(Tags.debug + chalk.cyan(`[Markers-Render] Running ChildExec Command: ${markersCommand}`));
@@ -205,10 +214,10 @@ async function init() {
         // When marker run finishes, move the marker PNG into the main shuttle folder and rename it with -markers suffix.
         function HandleMarkerOutput(ClearBlocker = false, tries = 0) {
           try {
-            let primaryFolder = path.join(__dirname, 'ShuttleRenders', ShuttleName);
+            let primaryFolder = path.join(OutputPath, ShuttleName);
             if (!fs.existsSync(primaryFolder)) {
               // Try capitalized folder (linux behaviour)
-              const alt = path.join(__dirname, 'ShuttleRenders', ShuttleName.replace(/^./, s => s.toUpperCase()));
+              const alt = path.join(OutputPath, ShuttleName.replace(/^./, s => s.toUpperCase()));
               if (fs.existsSync(alt)) {
                 primaryFolder = alt;
               }
@@ -216,10 +225,10 @@ async function init() {
 
             if (!fs.existsSync(primaryFolder)) {
               console.log(Tags.error + chalk.red(`Markers render finished but primary render folder for ${ShuttleName} not found, trying again in 15 seconds.`));
-              LockQueueClearMarkers = true;
+              LockQueueClearMarkers.push(ShuttleName);
               if (tries >= 4) {
                 console.log(Tags.error + chalk.red(`Markers render for ${ShuttleName} failed 5 times, giving up.`));
-                LockQueueClearMarkers = false;
+                LockQueueClearMarkers = LockQueueClearMarkers.filter(name => name !== ShuttleName);
                 return;
               }
               setTimeout(() => HandleMarkerOutput(true, tries + 1), 15000);
@@ -250,7 +259,7 @@ async function init() {
             fs.renameSync(oldPath, newPath);
             // cleanup temp folder
             console.log(Tags.info + chalk.green(`Moved markers image ${latest} -> ${path.relative(__dirname, newPath)}`));
-            if (ClearBlocker) LockQueueClearMarkers = false;
+            if (ClearBlocker) LockQueueClearMarkers = LockQueueClearMarkers.filter(name => name !== ShuttleName);
             if (fs.existsSync(markersOutputWithFileName))
               fs.rmSync(markersOutputWithFileName, { recursive: true, force: true });
           } catch (e) {
@@ -346,14 +355,14 @@ function AddExecLogs(exec, prefix = null, shuttle = null) {
 
 function RenameMappedFile(shuttle) {
   const ShuttleName = shuttle.split(".")[0];
-  let ShipyardPath = path.join(__dirname, "ShuttleRenders", ShuttleName);
+  let ShipyardPath = path.join(OutputPath, ShuttleName);
   let ShuttleFile = path.join(ShipyardPath, `${ShuttleName}-0.png`);
   let ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
   if (fs.existsSync(ShuttleFile)) {
     fs.renameSync(ShuttleFile, ShuttleFileNew);
   } else {
     // The Linux version seem to uppercase the first letter of the shuttle name
-    ShipyardPath = path.join(__dirname, "ShuttleRenders", shuttle.replace(/^./, str => str.toUpperCase()));
+    ShipyardPath = path.join(OutputPath, shuttle.replace(/^./, str => str.toUpperCase()));
     ShuttleFileNew = path.join(ShipyardPath, `${ShuttleName}.png`);
     ShuttleFile = path.join(ShipyardPath, `${ShuttleName.replace(/^./, str => str.toUpperCase())}-0.png`);
     if (fs.existsSync(ShuttleFile)) {
