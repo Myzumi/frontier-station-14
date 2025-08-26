@@ -8,11 +8,6 @@ if (fs.existsSync(path.join(__dirname, 'out'))) {
 
 const filesToModify = [
     {
-        inputPath: path.join(__dirname, '..', '..', '..', 'RobustToolbox', 'Robust.Shared', 'EntitySerialization', 'EntityDeserializer.cs'),
-        //outputPath: path.join(__dirname, 'out', 'EntityDeserializer.cs'),
-        linesToComment: [864, 865]
-    },
-    {
         inputPath: path.join(__dirname, '..', '..', '..', 'RobustToolbox', 'Robust.Shared', 'EntitySerialization', 'Systems', 'MapLoaderSystem.Load.cs'),
         //outputPath: path.join(__dirname, 'out', 'MapLoaderSystem.Load.cs'),
         linesToComment: [103, 104, 105, 106, 107, 108, 109]

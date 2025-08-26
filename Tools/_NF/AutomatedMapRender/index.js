@@ -166,7 +166,8 @@ async function init() {
       let NextShipyardPath = AllShuttleToRender.shift();
       let ShuttleToRender = NextShipyardPath.split("/").pop();
       console.log(chalk.blue(`Starting MapRenderer for ${ShuttleToRender.split(".")[0]}, Taking ${PrettyPrintNumber(CurrentInstances + 1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
-      const Command = `cd ${Root} && dotnet run --project Content.MapRenderer --files ${ShuttleToRender} --output ${path.join(__dirname, "ShuttleRenders")}`;
+      const relativeShuttlePath = path.relative(path.join(Root, "Resources"), path.join(ShipRootPath, ShuttleToRender))
+      const Command = `cd ${Root} && dotnet run --project Content.MapRenderer --files \\${relativeShuttlePath} --output ${path.join(__dirname, "ShuttleRenders")}`;
       ShuttleToRender = ShuttleToRender.split(".")[0];
       if (Debug)
         console.log(Tags.debug + chalk.cyan(`[${CurrentInstances + 1}-Render] Running ChildExec Command: ${Command}`));
