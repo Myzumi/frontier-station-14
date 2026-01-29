@@ -380,6 +380,7 @@
   - ContractorClothingOuterCoatJacketLettermanMagenta # Punkish (Static visuals)
   - ContractorClothingOuterCoatBomberPinkSleeves # Punkish (Static visuals)
   - ContractorClothingOuterCoatBomberRandomized # Punkish (Randomized visuals)
+  - ContractorClothingOuterCoatRandomized # Punkish (Randomized visuals)
   - ContractorClothingOuterCoatAcidRaincoat # Punkish (Static visuals)
   - ContractorClothingOuterCoatAcidRaincoatBlue # Punkish (Static visuals)
   - ContractorClothingOuterCoatAcidRaincoatGreen # Punkish (Static visuals)
@@ -633,7 +634,7 @@
   - ContractorClothingNeckTieRed
   - ContractorClothingNeckTieSci
   - ContractorClothingNeckLawyerbadge
-  - ContractorClothingNeckHeadphones
+  - ContractorClothingMultipleHeadphones
   - ContractorClothingNeckCrucifix
   - ContractorClothingNeckBellCollar
   - ContractorCDDogtags
@@ -790,6 +791,7 @@
   - ContractorWristwatchGold
   - ContractorSilverRing
   - ContractorGoldRing
+  - ContractorUrnMortuary
   - ContractorBasketball
   - ContractorFootball
   - ContractorBeachBall
@@ -856,6 +858,7 @@
   - ContractorHandheldCrewMonitor
   - ContractorHypoMini
   - ContractorBible
+  - ContractorBodycam
 
 - type: loadoutGroup
   id: ContractorFace
@@ -937,6 +940,7 @@
   - ContractorMedicalTrackingImplanter
   - ContractorLightImplanter
   - ContractorBikeHornImplanter
+  - ContractorWehImplanter 
   - ContractorSadTromboneImplanter
   - ContractorMimePowersImplanter
   - ContractorBibleUserImplanter
