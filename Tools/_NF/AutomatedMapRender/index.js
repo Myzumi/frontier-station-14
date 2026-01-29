@@ -189,8 +189,8 @@ async function init() {
       let ShuttleToRender = NextShipyardPath.split("/").pop();
       let ShuttleName = ShuttleToRender.split(".")[0];
       console.log(chalk.blue(`Starting MapRenderer for ${ShuttleName}, Taking ${PrettyPrintNumber(CurrentInstances + 1)} Slot, now at ${CurrentInstances + 1}/${MaxInstances} Instances, ${AllShuttleToRender.length} left to render`));
-      const relativeShuttlePath = path.relative(path.join(Root, "Resources"), path.join(ShipRootPath, NextShipyardPath)).replace(/\\/g, "/");
-      const baseCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files /${relativeShuttlePath} --output ${path.join(OutputPath)}`;
+      const ShuttlePath = path.join(ShipRootPath, NextShipyardPath).replace(/\\/g, "/");
+      const baseCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files ${ShuttlePath} --output ${path.join(OutputPath)}`;
       // Build main command. If UseMarkers is true and SeparatedMarkerImage is false -> add markers to main run.
       const mainCommand = baseCommand + (UseMarkers && !SeparatedMarkerImage ? " --markers" : "");
 
@@ -206,7 +206,7 @@ async function init() {
         // Use a temp output folder for markers so it cannot overwrite the main render files
         const markersOutput = path.join(OutputPath, "markers");
         // ensure the temp folder is clean
-        const markersCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files /${relativeShuttlePath} --output ${markersOutput} --markers`;
+        const markersCommand = `cd ${Root} && dotnet run --project Content.MapRenderer --files ${ShuttlePath} --output ${markersOutput} --markers`;
         if (Debug) console.log(Tags.debug + chalk.cyan(`[Markers-Render] Running ChildExec Command: ${markersCommand}`));
         const RenderMarkers = exec(markersCommand);
         // Attach logs but don't pass the shuttle identifier to avoid conflicting with normal success/rename flow.
@@ -370,6 +370,7 @@ function RenameMappedFile(shuttle) {
       fs.renameSync(ShuttleFile, ShuttleFileNew);
     } else {
       // Scan the folder for the rendered file and rename it to the correct name
+      if (!fs.existsSync(ShipyardPath)) return console.log(Tags.error + chalk.red(`Failed to find the rendered file for ${ShuttleName}`));
       const files = fs.readdirSync(ShipyardPath);
       const fileToRename = files.find(file => file.startsWith(ShuttleName) && file.endsWith(".png"));
       if (fileToRename) {
