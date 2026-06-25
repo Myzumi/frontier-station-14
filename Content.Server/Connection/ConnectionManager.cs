@@ -393,7 +393,7 @@ namespace Content.Server.Connection
                 }
             }
             // end Frontier
-            return null;
+            return await CheckMACGuestAuthAsync(e); // _MAC
         }
 
         private bool HasTemporaryBypass(NetUserId user)
@@ -403,6 +403,13 @@ namespace Content.Server.Connection
 
         private async Task<NetUserId?> AssignUserIdCallback(string name)
         {
+            // _MAC: intercept guest connections when MAC guest auth is enabled.
+            var macId = await TryResolveMACUserIdAsync(name);
+            if (macId != null)
+                return macId;
+            if (ShouldBypassGuestDbLookup(name))
+                return null; // MAC enabled for guests — do not fall through to DB lookup.
+
             if (!_cfg.GetCVar(CCVars.GamePersistGuests))
             {
                 return null;

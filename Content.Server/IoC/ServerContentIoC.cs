@@ -1,4 +1,5 @@
 using Content.Server._NF.Auth;
+using Content.Server._MAC.GuestAuth; // _MAC
 using Content.Server._Harmony.JoinQueue; // Harmony Queue
 using Content.Server.Administration;
 using Content.Server.Administration.Logs;
@@ -80,6 +81,7 @@ namespace Content.Server.IoC
             IoCManager.Register<MultiServerKickManager>();
             IoCManager.Register<CVarControlManager>();
             IoCManager.Register<MiniAuthManager>(); //Frontier
+            IoCManager.Register<MACAuthManager>(); // _MAC
 
             IoCManager.Register<DiscordLink>();
             IoCManager.Register<DiscordChatLink>();
