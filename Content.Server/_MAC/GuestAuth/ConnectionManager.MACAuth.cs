@@ -39,6 +39,18 @@ public sealed partial class ConnectionManager
         if (!_macAuth.IsGuestUsername(raw))
             return null;
 
+        var sourceIp = e.IP.Address.ToString();
+
+        // IP lock: if the connecting IP doesn't match the challenge/verified session IP, clear state
+        // and fall through to start a fresh challenge from this IP.
+        if (_macAuth.CheckAndEnforceIpLock(raw, sourceIp))
+        {
+            var newMsg = await _macAuth.StartChallengeAndGetDenyMessageAsync(raw, sourceIp);
+            return (ConnectionDenyReason.Whitelist,
+                newMsg ?? "Authentication required from a new location. Please complete the verification again.",
+                null);
+        }
+
         var normalized = _macAuth.NormalizeUsername(raw);
         var state = _macAuth.GetChallengeState(normalized);
 
@@ -80,7 +92,7 @@ public sealed partial class ConnectionManager
             case MACChallengeState.None:
             default:
             {
-                var msg = await _macAuth.StartChallengeAndGetDenyMessageAsync(raw);
+                var msg = await _macAuth.StartChallengeAndGetDenyMessageAsync(raw, sourceIp);
                 return (ConnectionDenyReason.Whitelist,
                     msg ?? "Failed to start authentication. Please contact a server administrator.",
                     null);

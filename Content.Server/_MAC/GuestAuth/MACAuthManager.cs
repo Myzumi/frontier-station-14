@@ -80,10 +80,10 @@ public sealed class MACAuthManager
         if (!_pending.TryGetValue(normalized, out var ch) || ch.ExpiresAt <= DateTimeOffset.UtcNow)
             return null;
 
-        return FormatDenyMessage(ch.OriginalUsername, ch.UserCode, ch.LoginUrl, ch.ExpiresAt);
+        return FormatDenyMessage(ch.OriginalUsername, ch.UserCode, ch.DisplayUrl, ch.ExpiresAt);
     }
 
-    public async Task<string?> StartChallengeAndGetDenyMessageAsync(string raw)
+    public async Task<string?> StartChallengeAndGetDenyMessageAsync(string raw, string sourceIp)
     {
         var normalized = NormalizeUsername(raw);
         var display = StripGuestPrefix(raw);
@@ -96,8 +96,9 @@ public sealed class MACAuthManager
         var environment = _cfg.GetCVar(MACCCVars.MACEnvironment);
         var providers = _cfg.GetCVar(MACCCVars.MACPolicyAllowedProviders)
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var codeMode = _cfg.GetCVar(MACCCVars.MACCodeMode);
 
-        var body = new StartRequest(display, environment, new StartRequest.PolicyBlock(
+        var body = new StartRequest(display, environment, codeMode, new StartRequest.PolicyBlock(
             _cfg.GetCVar(MACCCVars.MACPolicyAllowNewAccounts),
             _cfg.GetCVar(MACCCVars.MACPolicyAllowGeneratedFallback),
             _cfg.GetCVar(MACCCVars.MACPolicyAllowUnofficialOAuth),
@@ -128,6 +129,10 @@ public sealed class MACAuthManager
 
             var now = DateTimeOffset.UtcNow;
             var expiresAt = result.ExpiresAt ?? now.AddSeconds(_cfg.GetCVar(MACCCVars.MACChallengeTimeout));
+            // Use the server's preferred display URL if provided, otherwise fall back to loginUrl.
+            var displayUrl = !string.IsNullOrEmpty(result.PreferredDisplayUrl)
+                ? result.PreferredDisplayUrl
+                : result.LoginUrl;
 
             var ch = new PendingChallenge
             {
@@ -135,14 +140,16 @@ public sealed class MACAuthManager
                 NormalizedUsername = normalized,
                 UserCode = result.UserCode,
                 LoginUrl = result.LoginUrl,
+                DisplayUrl = displayUrl,
                 CheckToken = result.CheckToken,
                 ExpiresAt = expiresAt,
+                SourceIp = sourceIp,
                 State = MACChallengeState.ChallengePending,
             };
             _pending[normalized] = ch;
 
             Log.Info($"MAC: started challenge for '{display}' code={result.UserCode} expires={expiresAt:O}");
-            return FormatDenyMessage(display, ch.UserCode, ch.LoginUrl, ch.ExpiresAt);
+            return FormatDenyMessage(display, ch.UserCode, ch.DisplayUrl, ch.ExpiresAt);
         }
         catch (Exception ex)
         {
@@ -175,6 +182,17 @@ public sealed class MACAuthManager
             return null;
         }
 
+        // Throttle consume calls when the challenge is known to not be ready yet.
+        var grace = _cfg.GetCVar(MACCCVars.MACReconnectGraceTimeout);
+        if (grace > 0 && ch.State == MACChallengeState.PendingNotReady && ch.LastConsumeAttemptAt.HasValue)
+        {
+            if ((now - ch.LastConsumeAttemptAt.Value).TotalSeconds < grace)
+            {
+                Log.Debug($"MAC: skipping consume for '{display}', still within grace window");
+                return null;
+            }
+        }
+
         ch.LastConsumeAttemptAt = now;
 
         var apiUrl = _cfg.GetCVar(MACCCVars.MACApiUrl).TrimEnd('/');
@@ -204,6 +222,8 @@ public sealed class MACAuthManager
                         BindingType = result.Binding?.Type ?? string.Empty,
                         VerifiedAt = now,
                         ExpiresAt = now.AddSeconds(_cfg.GetCVar(MACCCVars.MACVerifiedSessionTimeout)),
+                        // SourceIp will be filled in by CheckMACGuestAuthAsync after IP validation.
+                        SourceIp = ch.SourceIp,
                     };
                     ch.State = MACChallengeState.JustConsumed;
 
@@ -254,6 +274,43 @@ public sealed class MACAuthManager
         }
     }
 
+    /// <summary>
+    /// Returns true if IP locking is enabled and the connecting IP differs from the one that
+    /// started or last verified the challenge. Called from ShouldDeny (which has e.IP).
+    /// Clears stale state so the next attempt starts a fresh challenge from the new IP.
+    /// </summary>
+    public bool CheckAndEnforceIpLock(string raw, string sourceIp)
+    {
+        if (!_cfg.GetCVar(MACCCVars.MACLockIp))
+            return false;
+
+        var normalized = NormalizeUsername(raw);
+        var display = StripGuestPrefix(raw);
+
+        if (_verified.TryGetValue(normalized, out var vm))
+        {
+            if (vm.SourceIp != sourceIp)
+            {
+                Log.Info($"MAC: IP mismatch on verified session for '{display}' (expected {vm.SourceIp}, got {sourceIp}), clearing");
+                _verified.Remove(normalized);
+                return true;
+            }
+            return false;
+        }
+
+        if (_pending.TryGetValue(normalized, out var ch))
+        {
+            if (ch.SourceIp != sourceIp)
+            {
+                Log.Warning($"MAC: IP mismatch for '{display}' (challenge from {ch.SourceIp}, reconnect from {sourceIp}), restarting auth");
+                _pending.Remove(normalized);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Strips guest@/localhost@ while keeping the original casing — used for API calls and display.
     private static string StripGuestPrefix(string raw)
     {
@@ -284,8 +341,10 @@ public sealed class MACAuthManager
         public required string NormalizedUsername { get; init; }
         public required string UserCode { get; init; }
         public required string LoginUrl { get; init; }
+        public required string DisplayUrl { get; init; }
         public required string CheckToken { get; init; }
         public required DateTimeOffset ExpiresAt { get; init; }
+        public required string SourceIp { get; init; }
         public MACChallengeState State { get; set; } = MACChallengeState.ChallengePending;
         public DateTimeOffset? LastConsumeAttemptAt { get; set; }
     }
@@ -295,6 +354,7 @@ public sealed class MACAuthManager
         public required Guid EffectiveGuid { get; init; }
         public required Guid CanonicalGuid { get; init; } // debug/admin context only
         public required string BindingType { get; init; }
+        public required string SourceIp { get; init; }
         public required DateTimeOffset VerifiedAt { get; init; }
         public required DateTimeOffset ExpiresAt { get; init; }
     }
@@ -302,6 +362,7 @@ public sealed class MACAuthManager
     private sealed record StartRequest(
         [property: JsonPropertyName("username")] string Username,
         [property: JsonPropertyName("environment")] string Environment,
+        [property: JsonPropertyName("codeMode")] string CodeMode,
         [property: JsonPropertyName("policy")] StartRequest.PolicyBlock Policy)
     {
         public sealed record PolicyBlock(
@@ -319,6 +380,7 @@ public sealed class MACAuthManager
         [property: JsonPropertyName("userCode")] string UserCode,
         [property: JsonPropertyName("checkToken")] string CheckToken,
         [property: JsonPropertyName("loginUrl")] string LoginUrl,
+        [property: JsonPropertyName("preferredDisplayUrl")] string? PreferredDisplayUrl,
         [property: JsonPropertyName("expiresAt")] DateTimeOffset? ExpiresAt,
         [property: JsonPropertyName("environment")] string? Environment);
 

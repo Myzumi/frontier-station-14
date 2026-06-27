@@ -25,6 +25,13 @@ public sealed class MACCCVars
     public static readonly CVarDef<string> MACEnvironment =
         CVarDef.Create("mac.environment", "production", CVar.SERVERONLY);
 
+    /// <summary>
+    /// Lock reconnects to the IP that initiated the challenge.
+    /// If the same username reconnects from a different IP, the challenge is restarted.
+    /// </summary>
+    public static readonly CVarDef<bool> MACLockIp =
+        CVarDef.Create("mac.lock_ip", true, CVar.SERVERONLY);
+
     /*
      * Timeouts
      */
@@ -84,4 +91,8 @@ public sealed class MACCCVars
     /// <summary>Allow the browser flow to merge/link providers into an existing account.</summary>
     public static readonly CVarDef<bool> MACPolicyAllowAccountMerging =
         CVarDef.Create("mac.policy.allow_account_merging", true, CVar.SERVERONLY);
+
+    /// <summary>Code style sent to the API. "random" for a random code, "memorable" for a human-friendly one.</summary>
+    public static readonly CVarDef<string> MACCodeMode =
+        CVarDef.Create("mac.code_mode", "random", CVar.SERVERONLY);
 }
